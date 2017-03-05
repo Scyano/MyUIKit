@@ -14,6 +14,13 @@
 		BBFF33701E6BFDF3002ED6B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBFF336E1E6BFDF3002ED6B0 /* Main.storyboard */; };
 		BBFF337B1E6BFDF3002ED6B0 /* MyUIKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF337A1E6BFDF3002ED6B0 /* MyUIKitTests.m */; };
 		BBFF33861E6BFDF4002ED6B0 /* MyUIKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33851E6BFDF4002ED6B0 /* MyUIKitUITests.m */; };
+		BBFF33981E6C1304002ED6B0 /* UIResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33971E6C1304002ED6B0 /* UIResponder.m */; };
+		BBFF339B1E6C147B002ED6B0 /* UIEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF339A1E6C147B002ED6B0 /* UIEvent.m */; };
+		BBFF339E1E6C1548002ED6B0 /* UITouch.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF339D1E6C1548002ED6B0 /* UITouch.m */; };
+		BBFF33A11E6C1721002ED6B0 /* UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33A01E6C1721002ED6B0 /* UIView.m */; };
+		BBFF33A51E6C18A0002ED6B0 /* UIBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33A41E6C18A0002ED6B0 /* UIBarItem.m */; };
+		BBFF33A81E6C1937002ED6B0 /* UIControl.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33A71E6C1937002ED6B0 /* UIControl.m */; };
+		BBFF33AB1E6C1A5E002ED6B0 /* UIGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33AA1E6C1A5E002ED6B0 /* UIGeometry.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +56,21 @@
 		BBFF33811E6BFDF4002ED6B0 /* MyUIKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyUIKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFF33851E6BFDF4002ED6B0 /* MyUIKitUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyUIKitUITests.m; sourceTree = "<group>"; };
 		BBFF33871E6BFDF4002ED6B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBFF33961E6C1304002ED6B0 /* UIResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIResponder.h; sourceTree = "<group>"; };
+		BBFF33971E6C1304002ED6B0 /* UIResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIResponder.m; sourceTree = "<group>"; };
+		BBFF33991E6C147B002ED6B0 /* UIEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIEvent.h; sourceTree = "<group>"; };
+		BBFF339A1E6C147B002ED6B0 /* UIEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIEvent.m; sourceTree = "<group>"; };
+		BBFF339C1E6C1548002ED6B0 /* UITouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITouch.h; sourceTree = "<group>"; };
+		BBFF339D1E6C1548002ED6B0 /* UITouch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITouch.m; sourceTree = "<group>"; };
+		BBFF339F1E6C1721002ED6B0 /* UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIView.h; sourceTree = "<group>"; };
+		BBFF33A01E6C1721002ED6B0 /* UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView.m; sourceTree = "<group>"; };
+		BBFF33A21E6C17D2002ED6B0 /* UIAppearance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAppearance.h; sourceTree = "<group>"; };
+		BBFF33A31E6C18A0002ED6B0 /* UIBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBarItem.h; sourceTree = "<group>"; };
+		BBFF33A41E6C18A0002ED6B0 /* UIBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBarItem.m; sourceTree = "<group>"; };
+		BBFF33A61E6C1937002ED6B0 /* UIControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIControl.h; sourceTree = "<group>"; };
+		BBFF33A71E6C1937002ED6B0 /* UIControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIControl.m; sourceTree = "<group>"; };
+		BBFF33A91E6C1A5E002ED6B0 /* UIGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGeometry.h; sourceTree = "<group>"; };
+		BBFF33AA1E6C1A5E002ED6B0 /* UIGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGeometry.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +125,9 @@
 				BBFF33641E6BFDF3002ED6B0 /* AppDelegate.m */,
 				BBFF33691E6BFDF3002ED6B0 /* ViewController.h */,
 				BBFF336A1E6BFDF3002ED6B0 /* ViewController.m */,
+				BBFF33931E6C12CC002ED6B0 /* Private Categories */,
+				BBFF33941E6C12CC002ED6B0 /* Private Classes */,
+				BBFF33951E6C12CC002ED6B0 /* UIKit Classes */,
 				BBFF336C1E6BFDF3002ED6B0 /* Assets.xcassets */,
 				BBFF336E1E6BFDF3002ED6B0 /* Main.storyboard */,
 				BBFF33711E6BFDF3002ED6B0 /* Info.plist */,
@@ -135,6 +160,42 @@
 				BBFF33871E6BFDF4002ED6B0 /* Info.plist */,
 			);
 			path = MyUIKitUITests;
+			sourceTree = "<group>";
+		};
+		BBFF33931E6C12CC002ED6B0 /* Private Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Private Categories";
+			sourceTree = "<group>";
+		};
+		BBFF33941E6C12CC002ED6B0 /* Private Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Private Classes";
+			sourceTree = "<group>";
+		};
+		BBFF33951E6C12CC002ED6B0 /* UIKit Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BBFF339C1E6C1548002ED6B0 /* UITouch.h */,
+				BBFF339D1E6C1548002ED6B0 /* UITouch.m */,
+				BBFF33991E6C147B002ED6B0 /* UIEvent.h */,
+				BBFF339A1E6C147B002ED6B0 /* UIEvent.m */,
+				BBFF33961E6C1304002ED6B0 /* UIResponder.h */,
+				BBFF33971E6C1304002ED6B0 /* UIResponder.m */,
+				BBFF339F1E6C1721002ED6B0 /* UIView.h */,
+				BBFF33A01E6C1721002ED6B0 /* UIView.m */,
+				BBFF33A61E6C1937002ED6B0 /* UIControl.h */,
+				BBFF33A71E6C1937002ED6B0 /* UIControl.m */,
+				BBFF33A21E6C17D2002ED6B0 /* UIAppearance.h */,
+				BBFF33A31E6C18A0002ED6B0 /* UIBarItem.h */,
+				BBFF33A41E6C18A0002ED6B0 /* UIBarItem.m */,
+				BBFF33A91E6C1A5E002ED6B0 /* UIGeometry.h */,
+				BBFF33AA1E6C1A5E002ED6B0 /* UIGeometry.m */,
+			);
+			path = "UIKit Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,9 +327,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBFF33A51E6C18A0002ED6B0 /* UIBarItem.m in Sources */,
+				BBFF33A81E6C1937002ED6B0 /* UIControl.m in Sources */,
+				BBFF33981E6C1304002ED6B0 /* UIResponder.m in Sources */,
+				BBFF33AB1E6C1A5E002ED6B0 /* UIGeometry.m in Sources */,
 				BBFF336B1E6BFDF3002ED6B0 /* ViewController.m in Sources */,
+				BBFF339B1E6C147B002ED6B0 /* UIEvent.m in Sources */,
 				BBFF33681E6BFDF3002ED6B0 /* main.m in Sources */,
+				BBFF33A11E6C1721002ED6B0 /* UIView.m in Sources */,
 				BBFF33651E6BFDF3002ED6B0 /* AppDelegate.m in Sources */,
+				BBFF339E1E6C1548002ED6B0 /* UITouch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +557,7 @@
 				BBFF338C1E6BFDF4002ED6B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BBFF338D1E6BFDF4002ED6B0 /* Build configuration list for PBXNativeTarget "MyUIKitTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +566,7 @@
 				BBFF338F1E6BFDF4002ED6B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BBFF33901E6BFDF4002ED6B0 /* Build configuration list for PBXNativeTarget "MyUIKitUITests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +575,7 @@
 				BBFF33921E6BFDF4002ED6B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
