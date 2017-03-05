@@ -1,2 +1,2 @@
 # MyUIKit
-a framework similar with ios UIKit
+a framework similar with iOS UIKit
