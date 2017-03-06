@@ -22,6 +22,7 @@
 		BB36CB691E6D38D70000449B /* UIFont.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB681E6D38D70000449B /* UIFont.m */; };
 		BB36CB6C1E6D395E0000449B /* UIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB6B1E6D395E0000449B /* UIScrollView.m */; };
 		BB36CB6F1E6D39770000449B /* UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB6E1E6D39770000449B /* UITableView.m */; };
+		BB36CB751E6D8EE70000449B /* UIStringDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB741E6D8EE70000449B /* UIStringDrawing.m */; };
 		BBFF33651E6BFDF3002ED6B0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33641E6BFDF3002ED6B0 /* AppDelegate.m */; };
 		BBFF33681E6BFDF3002ED6B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33671E6BFDF3002ED6B0 /* main.m */; };
 		BBFF336B1E6BFDF3002ED6B0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF336A1E6BFDF3002ED6B0 /* ViewController.m */; };
@@ -92,6 +93,8 @@
 		BB36CB6B1E6D395E0000449B /* UIScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollView.m; sourceTree = "<group>"; };
 		BB36CB6D1E6D39770000449B /* UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableView.h; sourceTree = "<group>"; };
 		BB36CB6E1E6D39770000449B /* UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableView.m; sourceTree = "<group>"; };
+		BB36CB731E6D8EE70000449B /* UIStringDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIStringDrawing.h; sourceTree = "<group>"; };
+		BB36CB741E6D8EE70000449B /* UIStringDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIStringDrawing.m; sourceTree = "<group>"; };
 		BBFF33601E6BFDF3002ED6B0 /* MyUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFF33631E6BFDF3002ED6B0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BBFF33641E6BFDF3002ED6B0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 				BBFF33C81E6C5799002ED6B0 /* UIGeometry.m */,
 				BB36CB4B1E6D0FD90000449B /* UIGraphics.h */,
 				BB36CB4C1E6D0FD90000449B /* UIGraphics.m */,
+				BB36CB731E6D8EE70000449B /* UIStringDrawing.h */,
+				BB36CB741E6D8EE70000449B /* UIStringDrawing.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -503,6 +508,7 @@
 				BB36CB581E6D31210000449B /* UIGestureRecognizer.m in Sources */,
 				BB36CB3A1E6D005A0000449B /* UIViewController.m in Sources */,
 				BB36CB501E6D10B70000449B /* UIImage.m in Sources */,
+				BB36CB751E6D8EE70000449B /* UIStringDrawing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
