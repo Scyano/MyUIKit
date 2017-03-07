@@ -4,7 +4,7 @@
 //
 //  Created by dengxiang on 2017/3/6.
 //  Copyright © 2017年 Jack. All rights reserved.
-//
+//  http://www.jianshu.com/p/6dea099c1c3d
 /*
  这个UITableViewCell类算是简化版的UITableViewCell，跟系统的UITableViewCell的相比缺少的功能如下：
  1.editing的状态未实现，这里简单说下实现editing的实现思路，用editing标志位控制cell是否处于编辑状态，当实现tableView的编辑的相关代理方法后，将editing置为YES。给UITableViewCell再增加一个子控件view，为删除或增加的view，放在常用子控件的下方，然后给UITableViewCell增加一个手势，当editing为yes的时候，手势生效，左滑可以看到这个删除的view

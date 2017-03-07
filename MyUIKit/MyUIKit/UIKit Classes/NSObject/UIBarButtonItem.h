@@ -42,4 +42,10 @@ typedef NS_ENUM(NSInteger, UIBarButtonItemStyle) {
 
 @interface UIBarButtonItem : UIBarItem
 
+- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(id)target action:(SEL)action;
+- (id)initWithCustomView:(UIView *)customView;
+- (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action;
+- (id)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action;
+
+
 @end

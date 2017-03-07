@@ -14,8 +14,8 @@
 @class UIImage;
 
 @interface UIBarItem : NSObject <UIAppearance>
-- (void)setTitleTextAttributes:(NSDictionary *)attributes forState:(UIControlState)state;
-- (NSDictionary *)titleTextAttributesForState:(UIControlState)state;
+- (void)setTitleTextAttributes:(NSDictionary *)attributes forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
+- (NSDictionary *)titleTextAttributesForState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 
 @property (nonatomic, getter=isEnabled) BOOL enabled;
 @property (nonatomic, strong) UIImage *image;

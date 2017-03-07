@@ -27,5 +27,6 @@
 
 
 #import "UITableViewCell.h"  //  完全实现
+#import "UIViewController.h"  // 完全实现
 
 #endif /* UIKit_h */

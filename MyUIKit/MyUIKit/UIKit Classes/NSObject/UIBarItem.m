@@ -7,6 +7,7 @@
 //
 
 #import "UIBarItem.h"
+#import "UIStringDrawing.h"
 
 @implementation UIBarItem
 
