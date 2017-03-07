@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, _UIViewControllerParentageTransition) {
     NSMutableArray *_childViewControllers;
     __unsafe_unretained UIViewController *_parentViewController;
     
-    NSUInteger _appearanceTransitionStack;
+    NSUInteger _appearanceTransitionStack;// 定义一个NSUInteger来管理栈的数量
     BOOL _appearanceTransitionIsAnimated;
     BOOL _viewIsAppearing;
     _UIViewControllerParentageTransition _parentageTransition;
@@ -190,6 +190,7 @@ typedef NS_ENUM(NSInteger, _UIViewControllerParentageTransition) {
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion
 {
+    //iOS6 以后，苹果抛弃了下面这个方法，使用上面的方法，可以多一个回调
     [self presentModalViewController:viewControllerToPresent animated:YES];
     completion();
 }
@@ -216,6 +217,24 @@ typedef NS_ENUM(NSInteger, _UIViewControllerParentageTransition) {
         if (animated)
          {
              // 这里加了个UIView动画，除此之外跟下面一样，就不写了
+             switch (self.modalTransitionStyle) {
+                     //  根据样式的不同，调用不同的uiview动画
+                 case UIModalTransitionStyleCoverVertical:
+                     
+                     break;
+                 case UIModalTransitionStyleFlipHorizontal:
+                     
+                     break;
+                 case UIModalTransitionStyleCrossDissolve:
+                     
+                     break;
+                 case UIModalTransitionStylePartialCurl:
+                     
+                     break;
+                     
+                 default:
+                     break;
+             }
          }
          else
          {

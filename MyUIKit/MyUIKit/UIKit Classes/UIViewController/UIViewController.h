@@ -12,7 +12,6 @@
 #import "UISearchDisplayController.h"
 
 
-
 @class UIBarButtonItem,UINavigationItem,UISplitViewController,UITabBarController,UITabBarItem,UINavigationController;
 
 typedef NS_ENUM(NSInteger, UIModalPresentationStyle) {
