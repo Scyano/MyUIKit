@@ -1,4 +1,4 @@
-//
+//  完全实现  UIControl在UIView的基础上加了事件响应功能
 //  UIControl.h
 //  MyUIKit
 //

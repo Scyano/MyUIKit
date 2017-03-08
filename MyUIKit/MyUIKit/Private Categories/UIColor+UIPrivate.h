@@ -1,4 +1,4 @@
-
+// 完全实现
 #import "UIColor.h"
 
 @class UIColorRep;

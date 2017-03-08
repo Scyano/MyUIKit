@@ -1,4 +1,4 @@
-
+//  完全实现
 #import "UIGestureRecognizer.h"
 #import "UITouch.h"
 

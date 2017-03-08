@@ -1,4 +1,4 @@
-//
+//  完全实现
 //  UIColorRep.h
 //  MyUIKit
 //

@@ -23,6 +23,11 @@
 		BB36CB6C1E6D395E0000449B /* UIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB6B1E6D395E0000449B /* UIScrollView.m */; };
 		BB36CB6F1E6D39770000449B /* UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB6E1E6D39770000449B /* UITableView.m */; };
 		BB36CB751E6D8EE70000449B /* UIStringDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB741E6D8EE70000449B /* UIStringDrawing.m */; };
+		BB7FB3A31E703F500031511B /* UIInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3A21E703F500031511B /* UIInputController.m */; };
+		BB7FB3A71E7041A20031511B /* UIImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3A61E7041A20031511B /* UIImageRep.m */; };
+		BB7FB3AA1E7044160031511B /* UIAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3A91E7044160031511B /* UIAction.m */; };
+		BB7FB3AD1E70446F0031511B /* UIControlAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3AC1E70446F0031511B /* UIControlAction.m */; };
+		BB7FB3B11E70475A0031511B /* UIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3B01E70475A0031511B /* UIButton.m */; };
 		BB8579EF1E6FA6510062F594 /* UIViewAnimationGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8579EE1E6FA6510062F594 /* UIViewAnimationGroup.m */; };
 		BB8579F21E6FAAF10062F594 /* UIViewLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8579F11E6FAAF10062F594 /* UIViewLayoutManager.m */; };
 		BB8579F51E6FAF690062F594 /* UIAppearanceInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8579F41E6FAF690062F594 /* UIAppearanceInstance.m */; };
@@ -41,7 +46,6 @@
 		BBFF33701E6BFDF3002ED6B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBFF336E1E6BFDF3002ED6B0 /* Main.storyboard */; };
 		BBFF337B1E6BFDF3002ED6B0 /* MyUIKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF337A1E6BFDF3002ED6B0 /* MyUIKitTests.m */; };
 		BBFF33861E6BFDF4002ED6B0 /* MyUIKitUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33851E6BFDF4002ED6B0 /* MyUIKitUITests.m */; };
-		BBFF33BF1E6C3F85002ED6B0 /* UIInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33BE1E6C3F85002ED6B0 /* UIInputController.m */; };
 		BBFF33C21E6C4022002ED6B0 /* UITextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33C11E6C4022002ED6B0 /* UITextInput.m */; };
 		BBFF33C61E6C5674002ED6B0 /* UIScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33C51E6C5674002ED6B0 /* UIScreen.m */; };
 		BBFF33C91E6C5799002ED6B0 /* UIGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33C81E6C5799002ED6B0 /* UIGeometry.m */; };
@@ -106,6 +110,18 @@
 		BB36CB6E1E6D39770000449B /* UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableView.m; sourceTree = "<group>"; };
 		BB36CB731E6D8EE70000449B /* UIStringDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIStringDrawing.h; sourceTree = "<group>"; };
 		BB36CB741E6D8EE70000449B /* UIStringDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIStringDrawing.m; sourceTree = "<group>"; };
+		BB7FB3A11E703F500031511B /* UIInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIInputController.h; sourceTree = "<group>"; };
+		BB7FB3A21E703F500031511B /* UIInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIInputController.m; sourceTree = "<group>"; };
+		BB7FB3A41E70404C0031511B /* UIColor+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+UIPrivate.h"; sourceTree = "<group>"; };
+		BB7FB3A51E7041A20031511B /* UIImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageRep.h; sourceTree = "<group>"; };
+		BB7FB3A61E7041A20031511B /* UIImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageRep.m; sourceTree = "<group>"; };
+		BB7FB3A81E7044160031511B /* UIAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAction.h; sourceTree = "<group>"; };
+		BB7FB3A91E7044160031511B /* UIAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAction.m; sourceTree = "<group>"; };
+		BB7FB3AB1E70446F0031511B /* UIControlAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIControlAction.h; sourceTree = "<group>"; };
+		BB7FB3AC1E70446F0031511B /* UIControlAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIControlAction.m; sourceTree = "<group>"; };
+		BB7FB3AE1E7044A20031511B /* UIControl+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+UIPrivate.h"; sourceTree = "<group>"; };
+		BB7FB3AF1E70475A0031511B /* UIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButton.h; sourceTree = "<group>"; };
+		BB7FB3B01E70475A0031511B /* UIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIButton.m; sourceTree = "<group>"; };
 		BB8579ED1E6FA6510062F594 /* UIViewAnimationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimationGroup.h; sourceTree = "<group>"; };
 		BB8579EE1E6FA6510062F594 /* UIViewAnimationGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimationGroup.m; sourceTree = "<group>"; };
 		BB8579F01E6FAAF10062F594 /* UIViewLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewLayoutManager.h; sourceTree = "<group>"; };
@@ -116,7 +132,6 @@
 		BB8579F71E6FAFEE0062F594 /* UIAppearanceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAppearanceProxy.m; sourceTree = "<group>"; };
 		BB8579F91E6FB16B0062F594 /* UIAppearanceProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAppearanceProperty.h; sourceTree = "<group>"; };
 		BB8579FA1E6FB16B0062F594 /* UIAppearanceProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAppearanceProperty.m; sourceTree = "<group>"; };
-		BB8579FC1E6FDADB0062F594 /* UIColor+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+UIPrivate.h"; sourceTree = "<group>"; };
 		BB8579FD1E6FDC8B0062F594 /* UIGestureRecognizer+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+UIPrivate.h"; sourceTree = "<group>"; };
 		BB947C341E6ED4510056DE97 /* UIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDevice.h; sourceTree = "<group>"; };
 		BB947C351E6ED4510056DE97 /* UIDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDevice.m; sourceTree = "<group>"; };
@@ -149,8 +164,6 @@
 		BBFF33AC1E6C353C002ED6B0 /* UIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UIKit.h; path = "UIKit Classes/UIKit.h"; sourceTree = "<group>"; };
 		BBFF33B21E6C3959002ED6B0 /* UIWindow+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+UIPrivate.h"; sourceTree = "<group>"; };
 		BBFF33BC1E6C3EC0002ED6B0 /* UITextInputTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextInputTraits.h; sourceTree = "<group>"; };
-		BBFF33BD1E6C3F85002ED6B0 /* UIInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIInputController.h; sourceTree = "<group>"; };
-		BBFF33BE1E6C3F85002ED6B0 /* UIInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIInputController.m; sourceTree = "<group>"; };
 		BBFF33C01E6C4022002ED6B0 /* UITextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextInput.h; sourceTree = "<group>"; };
 		BBFF33C11E6C4022002ED6B0 /* UITextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextInput.m; sourceTree = "<group>"; };
 		BBFF33C31E6C5599002ED6B0 /* UIView+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIPrivate.h"; sourceTree = "<group>"; };
@@ -216,7 +229,6 @@
 		BB36CB471E6D0E620000449B /* Private Classes */ = {
 			isa = PBXGroup;
 			children = (
-				BB8579FC1E6FDADB0062F594 /* UIColor+UIPrivate.h */,
 				BB36CB481E6D0E760000449B /* UIColorRep.h */,
 				BB36CB491E6D0E760000449B /* UIColorRep.m */,
 				BB36CB5E1E6D36120000449B /* UITableViewCellSeparator.h */,
@@ -231,6 +243,14 @@
 				BB8579FA1E6FB16B0062F594 /* UIAppearanceProperty.m */,
 				BB8579F61E6FAFEE0062F594 /* UIAppearanceProxy.h */,
 				BB8579F71E6FAFEE0062F594 /* UIAppearanceProxy.m */,
+				BB7FB3A11E703F500031511B /* UIInputController.h */,
+				BB7FB3A21E703F500031511B /* UIInputController.m */,
+				BB7FB3A51E7041A20031511B /* UIImageRep.h */,
+				BB7FB3A61E7041A20031511B /* UIImageRep.m */,
+				BB7FB3A81E7044160031511B /* UIAction.h */,
+				BB7FB3A91E7044160031511B /* UIAction.m */,
+				BB7FB3AB1E70446F0031511B /* UIControlAction.h */,
+				BB7FB3AC1E70446F0031511B /* UIControlAction.m */,
 			);
 			path = "Private Classes";
 			sourceTree = "<group>";
@@ -303,6 +323,8 @@
 		BBFF33931E6C12CC002ED6B0 /* Private Categories */ = {
 			isa = PBXGroup;
 			children = (
+				BB7FB3AE1E7044A20031511B /* UIControl+UIPrivate.h */,
+				BB7FB3A41E70404C0031511B /* UIColor+UIPrivate.h */,
 				BB36CB5D1E6D35830000449B /* UITableViewCell+UIPrivate.h */,
 				BBFF33C31E6C5599002ED6B0 /* UIView+UIPrivate.h */,
 				BBFF33B21E6C3959002ED6B0 /* UIWindow+UIPrivate.h */,
@@ -338,8 +360,6 @@
 				BBFF33D91E6C5C01002ED6B0 /* UIResponder.m */,
 				BBFF33DA1E6C5C01002ED6B0 /* UITouch.h */,
 				BBFF33DB1E6C5C01002ED6B0 /* UITouch.m */,
-				BBFF33BD1E6C3F85002ED6B0 /* UIInputController.h */,
-				BBFF33BE1E6C3F85002ED6B0 /* UIInputController.m */,
 				BBFF33C01E6C4022002ED6B0 /* UITextInput.h */,
 				BBFF33C11E6C4022002ED6B0 /* UITextInput.m */,
 				BBFF33C41E6C5674002ED6B0 /* UIScreen.h */,
@@ -389,10 +409,12 @@
 		BBFF33BA1E6C3EA0002ED6B0 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
-				BBFF33CA1E6C5B5C002ED6B0 /* UIControl.h */,
-				BBFF33CB1E6C5B5C002ED6B0 /* UIControl.m */,
 				BBFF33CC1E6C5B5C002ED6B0 /* UIView.h */,
 				BBFF33CD1E6C5B5C002ED6B0 /* UIView.m */,
+				BBFF33CA1E6C5B5C002ED6B0 /* UIControl.h */,
+				BBFF33CB1E6C5B5C002ED6B0 /* UIControl.m */,
+				BB7FB3AF1E70475A0031511B /* UIButton.h */,
+				BB7FB3B01E70475A0031511B /* UIButton.m */,
 				BBFF33CE1E6C5B5C002ED6B0 /* UIWindow.h */,
 				BBFF33CF1E6C5B5C002ED6B0 /* UIWindow.m */,
 				BB36CB5A1E6D34B20000449B /* UITableViewCell.h */,
@@ -540,10 +562,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBFF33BF1E6C3F85002ED6B0 /* UIInputController.m in Sources */,
 				BB36CB401E6D060D0000449B /* UIBarButtonItem.m in Sources */,
 				BB8579FB1E6FB16B0062F594 /* UIAppearanceProperty.m in Sources */,
 				BBFF33D21E6C5B5C002ED6B0 /* UIWindow.m in Sources */,
+				BB7FB3B11E70475A0031511B /* UIButton.m in Sources */,
 				BBFF33D01E6C5B5C002ED6B0 /* UIControl.m in Sources */,
 				BB947C391E6ED5370056DE97 /* UISearchDisplayController.m in Sources */,
 				BBFF33C61E6C5674002ED6B0 /* UIScreen.m in Sources */,
@@ -558,11 +580,13 @@
 				BBFF33DF1E6C5C01002ED6B0 /* UITouch.m in Sources */,
 				BB36CB6F1E6D39770000449B /* UITableView.m in Sources */,
 				BB947C451E6EDED20056DE97 /* UISplitViewController.m in Sources */,
+				BB7FB3A31E703F500031511B /* UIInputController.m in Sources */,
 				BBFF336B1E6BFDF3002ED6B0 /* ViewController.m in Sources */,
 				BB36CB4D1E6D0FD90000449B /* UIGraphics.m in Sources */,
 				BBFF33681E6BFDF3002ED6B0 /* main.m in Sources */,
 				BB36CB431E6D0B890000449B /* UIColor.m in Sources */,
 				BB8579F51E6FAF690062F594 /* UIAppearanceInstance.m in Sources */,
+				BB7FB3AA1E7044160031511B /* UIAction.m in Sources */,
 				BB8579F21E6FAAF10062F594 /* UIViewLayoutManager.m in Sources */,
 				BBFF33DD1E6C5C01002ED6B0 /* UIEvent.m in Sources */,
 				BBFF33651E6BFDF3002ED6B0 /* AppDelegate.m in Sources */,
@@ -572,9 +596,11 @@
 				BBFF33C91E6C5799002ED6B0 /* UIGeometry.m in Sources */,
 				BB36CB4A1E6D0E760000449B /* UIColorRep.m in Sources */,
 				BB36CB5C1E6D34B20000449B /* UITableViewCell.m in Sources */,
+				BB7FB3AD1E70446F0031511B /* UIControlAction.m in Sources */,
 				BB36CB661E6D38350000449B /* UILabel.m in Sources */,
 				BB8579EF1E6FA6510062F594 /* UIViewAnimationGroup.m in Sources */,
 				BB36CB581E6D31210000449B /* UIGestureRecognizer.m in Sources */,
+				BB7FB3A71E7041A20031511B /* UIImageRep.m in Sources */,
 				BB947C3F1E6EDBAF0056DE97 /* UINavigationController.m in Sources */,
 				BB947C361E6ED4510056DE97 /* UIDevice.m in Sources */,
 				BB36CB3A1E6D005A0000449B /* UIViewController.m in Sources */,

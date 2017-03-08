@@ -61,4 +61,5 @@ typedef NS_OPTIONS(NSUInteger, UIInterfaceOrientationMask) {
 
 @interface UIApplication : UIResponder
 + (UIApplication *)sharedApplication;
+- (BOOL)sendAction:(SEL)action to:(id)target from:(id)sender forEvent:(UIEvent *)event;
 @end

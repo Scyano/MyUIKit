@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, _UIViewControllerParentageTransition) {
 }
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle
 {
-    if ((self=[super init])) {
+    if ((self = [super init])) {
         _contentSizeForViewInPopover = CGSizeMake(320,1100);
         _hidesBottomBarWhenPushed = NO;
         _nibName = nibName;
