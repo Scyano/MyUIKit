@@ -50,10 +50,8 @@ typedef NS_ENUM(NSInteger, UIModalTransitionStyle) {
 
 // these are deprecated on iOS 6
 - (void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated;		// works, but not exactly correctly.
-- (void)dismissModalViewControllerAnimated:(BOOL)animated;												// see comments in dismissModalViewController
-
-- (void)didReceiveMemoryWarning;	// is called when UIApplicationDidReceiveMemoryWarningNotification is posted, which is currently only done by private API for.. fun, I guess?
-
+- (void)dismissModalViewControllerAnimated:(BOOL)animated;
+- (void)didReceiveMemoryWarning;
 - (void)setToolbarItems:(NSArray *)toolbarItems animated:(BOOL)animated;
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (UIBarButtonItem *)editButtonItem;
