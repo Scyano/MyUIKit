@@ -28,6 +28,8 @@
 		BB7FB3AA1E7044160031511B /* UIAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3A91E7044160031511B /* UIAction.m */; };
 		BB7FB3AD1E70446F0031511B /* UIControlAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3AC1E70446F0031511B /* UIControlAction.m */; };
 		BB7FB3B11E70475A0031511B /* UIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3B01E70475A0031511B /* UIButton.m */; };
+		BB7FB3B51E7051CF0031511B /* UIScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3B41E7051CF0031511B /* UIScroller.m */; };
+		BB7FB3B81E70524A0031511B /* UIBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3B71E70524A0031511B /* UIBezierPath.m */; };
 		BB8579EF1E6FA6510062F594 /* UIViewAnimationGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8579EE1E6FA6510062F594 /* UIViewAnimationGroup.m */; };
 		BB8579F21E6FAAF10062F594 /* UIViewLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8579F11E6FAAF10062F594 /* UIViewLayoutManager.m */; };
 		BB8579F51E6FAF690062F594 /* UIAppearanceInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8579F41E6FAF690062F594 /* UIAppearanceInstance.m */; };
@@ -122,6 +124,11 @@
 		BB7FB3AE1E7044A20031511B /* UIControl+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+UIPrivate.h"; sourceTree = "<group>"; };
 		BB7FB3AF1E70475A0031511B /* UIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButton.h; sourceTree = "<group>"; };
 		BB7FB3B01E70475A0031511B /* UIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIButton.m; sourceTree = "<group>"; };
+		BB7FB3B21E7051900031511B /* UIScrollView+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UIPrivate.h"; sourceTree = "<group>"; };
+		BB7FB3B31E7051CF0031511B /* UIScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScroller.h; sourceTree = "<group>"; };
+		BB7FB3B41E7051CF0031511B /* UIScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScroller.m; sourceTree = "<group>"; };
+		BB7FB3B61E70524A0031511B /* UIBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBezierPath.h; sourceTree = "<group>"; };
+		BB7FB3B71E70524A0031511B /* UIBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBezierPath.m; sourceTree = "<group>"; };
 		BB8579ED1E6FA6510062F594 /* UIViewAnimationGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewAnimationGroup.h; sourceTree = "<group>"; };
 		BB8579EE1E6FA6510062F594 /* UIViewAnimationGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewAnimationGroup.m; sourceTree = "<group>"; };
 		BB8579F01E6FAAF10062F594 /* UIViewLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewLayoutManager.h; sourceTree = "<group>"; };
@@ -251,6 +258,9 @@
 				BB7FB3A91E7044160031511B /* UIAction.m */,
 				BB7FB3AB1E70446F0031511B /* UIControlAction.h */,
 				BB7FB3AC1E70446F0031511B /* UIControlAction.m */,
+				BB7FB3B21E7051900031511B /* UIScrollView+UIPrivate.h */,
+				BB7FB3B31E7051CF0031511B /* UIScroller.h */,
+				BB7FB3B41E7051CF0031511B /* UIScroller.m */,
 			);
 			path = "Private Classes";
 			sourceTree = "<group>";
@@ -380,6 +390,8 @@
 				BB947C381E6ED5370056DE97 /* UISearchDisplayController.m */,
 				BB947C3A1E6EDB0C0056DE97 /* UINavigationItem.h */,
 				BB947C3B1E6EDB0C0056DE97 /* UINavigationItem.m */,
+				BB7FB3B61E70524A0031511B /* UIBezierPath.h */,
+				BB7FB3B71E70524A0031511B /* UIBezierPath.m */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -570,6 +582,7 @@
 				BB947C391E6ED5370056DE97 /* UISearchDisplayController.m in Sources */,
 				BBFF33C61E6C5674002ED6B0 /* UIScreen.m in Sources */,
 				BB8579F81E6FAFEE0062F594 /* UIAppearanceProxy.m in Sources */,
+				BB7FB3B81E70524A0031511B /* UIBezierPath.m in Sources */,
 				BB36CB6C1E6D395E0000449B /* UIScrollView.m in Sources */,
 				BB36CB691E6D38D70000449B /* UIFont.m in Sources */,
 				BB36CB631E6D37AE0000449B /* UIImageView.m in Sources */,
@@ -595,6 +608,7 @@
 				BBFF33DC1E6C5C01002ED6B0 /* UIBarItem.m in Sources */,
 				BBFF33C91E6C5799002ED6B0 /* UIGeometry.m in Sources */,
 				BB36CB4A1E6D0E760000449B /* UIColorRep.m in Sources */,
+				BB7FB3B51E7051CF0031511B /* UIScroller.m in Sources */,
 				BB36CB5C1E6D34B20000449B /* UITableViewCell.m in Sources */,
 				BB7FB3AD1E70446F0031511B /* UIControlAction.m in Sources */,
 				BB36CB661E6D38350000449B /* UILabel.m in Sources */,
