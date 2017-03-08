@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class UIView;
 @interface UIGestureRecognizer : NSObject
-
+@property (nonatomic, readonly) UIView *view;
 @end

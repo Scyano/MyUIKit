@@ -144,7 +144,7 @@ typedef NS_OPTIONS(NSUInteger, UIViewAnimationOptions) {
 @property (nonatomic) CGAffineTransform transform;
 @property (nonatomic, readonly) UIView *superview;
 @property (nonatomic, readonly) UIWindow *window;
-@property (nonatomic, readonly) NSArray *subviews;
+@property (nonatomic, readonly) NSArray *subviews; // 这里加了readonly
 @property (nonatomic) CGFloat alpha;
 @property (nonatomic, getter=isOpaque) BOOL opaque;
 @property (nonatomic) BOOL clearsContextBeforeDrawing;
@@ -161,5 +161,5 @@ typedef NS_OPTIONS(NSUInteger, UIViewAnimationOptions) {
 @property (nonatomic) CGFloat contentScaleFactor;
 @property (nonatomic, getter=isMultipleTouchEnabled) BOOL multipleTouchEnabled;	// state is maintained, but it has no effect
 @property (nonatomic, getter=isExclusiveTouch) BOOL exclusiveTouch; // state is maintained, but it has no effect
-@property (nonatomic, copy) NSArray *gestureRecognizers;
+@property (nonatomic, copy) NSArray *gestureRecognizers; // 这里没加readonly
 @end
