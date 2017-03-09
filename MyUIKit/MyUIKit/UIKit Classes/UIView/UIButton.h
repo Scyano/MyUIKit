@@ -20,10 +20,8 @@ typedef NS_ENUM(NSInteger, UIButtonType) {
 
 @class UILabel, UIImageView, UIImage;
 
-@interface UIButton : UIControl {
-    @package
-    UIButtonType _buttonType;
-}
+@interface UIButton : UIControl
+
 + (id)buttonWithType:(UIButtonType)buttonType;
 
 - (void)setTitle:(NSString *)title forState:(UIControlState)state;
