@@ -20,6 +20,7 @@
 #define IBOutlet
 #endif
 //  UIView,UIViewController,UIView动画实现，UIAppearance文章待写
+// UIScrollView,UITableView文章待写
 #import "UIResponder.h"   //  完全实现
 #import "UIEvent.h"  //  完全实现
 #import "UITouch.h"  //  完全实现

@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0C56311E728242006F5DE9 /* UITouchEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C56301E728242006F5DE9 /* UITouchEvent.m */; };
+		BB0C56341E728599006F5DE9 /* UIScrollViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C56331E728599006F5DE9 /* UIScrollViewAnimation.m */; };
+		BB0C56371E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C56361E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.m */; };
+		BB0C563A1E7286D5006F5DE9 /* UIScrollViewAnimationScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C56391E7286D5006F5DE9 /* UIScrollViewAnimationScroll.m */; };
+		BB0C563D1E728746006F5DE9 /* UIPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C563C1E728746006F5DE9 /* UIPanGestureRecognizer.m */; };
+		BB0C56411E728FD8006F5DE9 /* UITableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C56401E728FD8006F5DE9 /* UITableViewSection.m */; };
+		BB0C56441E72902B006F5DE9 /* UITableViewSectionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C56431E72902B006F5DE9 /* UITableViewSectionLabel.m */; };
+		BB0C56471E7293FB006F5DE9 /* UITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = BB0C56461E7293FB006F5DE9 /* UITextField.m */; };
 		BB36CB3A1E6D005A0000449B /* UIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB391E6D005A0000449B /* UIViewController.m */; };
 		BB36CB3D1E6D03DE0000449B /* UIApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB3C1E6D03DE0000449B /* UIApplication.m */; };
 		BB36CB401E6D060D0000449B /* UIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB3F1E6D060D0000449B /* UIBarButtonItem.m */; };
@@ -79,6 +87,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB0C562F1E728242006F5DE9 /* UITouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITouchEvent.h; sourceTree = "<group>"; };
+		BB0C56301E728242006F5DE9 /* UITouchEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITouchEvent.m; sourceTree = "<group>"; };
+		BB0C56321E728599006F5DE9 /* UIScrollViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScrollViewAnimation.h; sourceTree = "<group>"; };
+		BB0C56331E728599006F5DE9 /* UIScrollViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollViewAnimation.m; sourceTree = "<group>"; };
+		BB0C56351E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScrollViewAnimationDeceleration.h; sourceTree = "<group>"; };
+		BB0C56361E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollViewAnimationDeceleration.m; sourceTree = "<group>"; };
+		BB0C56381E7286D5006F5DE9 /* UIScrollViewAnimationScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScrollViewAnimationScroll.h; sourceTree = "<group>"; };
+		BB0C56391E7286D5006F5DE9 /* UIScrollViewAnimationScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScrollViewAnimationScroll.m; sourceTree = "<group>"; };
+		BB0C563B1E728746006F5DE9 /* UIPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPanGestureRecognizer.h; sourceTree = "<group>"; };
+		BB0C563C1E728746006F5DE9 /* UIPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPanGestureRecognizer.m; sourceTree = "<group>"; };
+		BB0C563E1E728974006F5DE9 /* UIGestureRecognizerSubclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGestureRecognizerSubclass.h; sourceTree = "<group>"; };
+		BB0C563F1E728FD8006F5DE9 /* UITableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewSection.h; sourceTree = "<group>"; };
+		BB0C56401E728FD8006F5DE9 /* UITableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewSection.m; sourceTree = "<group>"; };
+		BB0C56421E72902B006F5DE9 /* UITableViewSectionLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewSectionLabel.h; sourceTree = "<group>"; };
+		BB0C56431E72902B006F5DE9 /* UITableViewSectionLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewSectionLabel.m; sourceTree = "<group>"; };
+		BB0C56451E7293FB006F5DE9 /* UITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextField.h; sourceTree = "<group>"; };
+		BB0C56461E7293FB006F5DE9 /* UITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITextField.m; sourceTree = "<group>"; };
 		BB36CB381E6D005A0000449B /* UIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewController.h; sourceTree = "<group>"; };
 		BB36CB391E6D005A0000449B /* UIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewController.m; sourceTree = "<group>"; };
 		BB36CB3B1E6D03DE0000449B /* UIApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIApplication.h; sourceTree = "<group>"; };
@@ -267,6 +292,18 @@
 				BB7FB3B41E7051CF0031511B /* UIScroller.m */,
 				BB96083A1E715CB700A41A20 /* UIRoundedRectButton.h */,
 				BB96083B1E715CB700A41A20 /* UIRoundedRectButton.m */,
+				BB0C562F1E728242006F5DE9 /* UITouchEvent.h */,
+				BB0C56301E728242006F5DE9 /* UITouchEvent.m */,
+				BB0C56321E728599006F5DE9 /* UIScrollViewAnimation.h */,
+				BB0C56331E728599006F5DE9 /* UIScrollViewAnimation.m */,
+				BB0C56351E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.h */,
+				BB0C56361E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.m */,
+				BB0C56381E7286D5006F5DE9 /* UIScrollViewAnimationScroll.h */,
+				BB0C56391E7286D5006F5DE9 /* UIScrollViewAnimationScroll.m */,
+				BB0C563F1E728FD8006F5DE9 /* UITableViewSection.h */,
+				BB0C56401E728FD8006F5DE9 /* UITableViewSection.m */,
+				BB0C56421E72902B006F5DE9 /* UITableViewSectionLabel.h */,
+				BB0C56431E72902B006F5DE9 /* UITableViewSectionLabel.m */,
 			);
 			path = "Private Classes";
 			sourceTree = "<group>";
@@ -399,6 +436,9 @@
 				BB947C3B1E6EDB0C0056DE97 /* UINavigationItem.m */,
 				BB7FB3B61E70524A0031511B /* UIBezierPath.h */,
 				BB7FB3B71E70524A0031511B /* UIBezierPath.m */,
+				BB0C563B1E728746006F5DE9 /* UIPanGestureRecognizer.h */,
+				BB0C563C1E728746006F5DE9 /* UIPanGestureRecognizer.m */,
+				BB0C563E1E728974006F5DE9 /* UIGestureRecognizerSubclass.h */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -442,12 +482,14 @@
 				BB36CB621E6D37AE0000449B /* UIImageView.m */,
 				BB36CB641E6D38350000449B /* UILabel.h */,
 				BB36CB651E6D38350000449B /* UILabel.m */,
+				BB947C401E6EDC7B0056DE97 /* UIToolbar.h */,
+				BB947C411E6EDC7B0056DE97 /* UIToolbar.m */,
 				BB36CB6A1E6D395E0000449B /* UIScrollView.h */,
 				BB36CB6B1E6D395E0000449B /* UIScrollView.m */,
 				BB36CB6D1E6D39770000449B /* UITableView.h */,
 				BB36CB6E1E6D39770000449B /* UITableView.m */,
-				BB947C401E6EDC7B0056DE97 /* UIToolbar.h */,
-				BB947C411E6EDC7B0056DE97 /* UIToolbar.m */,
+				BB0C56451E7293FB006F5DE9 /* UITextField.h */,
+				BB0C56461E7293FB006F5DE9 /* UITextField.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -593,19 +635,25 @@
 				BB96083C1E715CB700A41A20 /* UIRoundedRectButton.m in Sources */,
 				BB36CB6C1E6D395E0000449B /* UIScrollView.m in Sources */,
 				BB36CB691E6D38D70000449B /* UIFont.m in Sources */,
+				BB0C56341E728599006F5DE9 /* UIScrollViewAnimation.m in Sources */,
+				BB0C563D1E728746006F5DE9 /* UIPanGestureRecognizer.m in Sources */,
 				BB36CB631E6D37AE0000449B /* UIImageView.m in Sources */,
+				BB0C56411E728FD8006F5DE9 /* UITableViewSection.m in Sources */,
 				BBFF33D11E6C5B5C002ED6B0 /* UIView.m in Sources */,
 				BBFF33DE1E6C5C01002ED6B0 /* UIResponder.m in Sources */,
 				BB36CB601E6D36120000449B /* UITableViewCellSeparator.m in Sources */,
 				BBFF33C21E6C4022002ED6B0 /* UITextInput.m in Sources */,
 				BBFF33DF1E6C5C01002ED6B0 /* UITouch.m in Sources */,
+				BB0C56311E728242006F5DE9 /* UITouchEvent.m in Sources */,
 				BB36CB6F1E6D39770000449B /* UITableView.m in Sources */,
 				BB947C451E6EDED20056DE97 /* UISplitViewController.m in Sources */,
 				BB7FB3A31E703F500031511B /* UIInputController.m in Sources */,
+				BB0C56441E72902B006F5DE9 /* UITableViewSectionLabel.m in Sources */,
 				BBFF336B1E6BFDF3002ED6B0 /* ViewController.m in Sources */,
 				BB36CB4D1E6D0FD90000449B /* UIGraphics.m in Sources */,
 				BBFF33681E6BFDF3002ED6B0 /* main.m in Sources */,
 				BB36CB431E6D0B890000449B /* UIColor.m in Sources */,
+				BB0C563A1E7286D5006F5DE9 /* UIScrollViewAnimationScroll.m in Sources */,
 				BB8579F51E6FAF690062F594 /* UIAppearanceInstance.m in Sources */,
 				BB7FB3AA1E7044160031511B /* UIAction.m in Sources */,
 				BB8579F21E6FAAF10062F594 /* UIViewLayoutManager.m in Sources */,
@@ -623,12 +671,14 @@
 				BB8579EF1E6FA6510062F594 /* UIViewAnimationGroup.m in Sources */,
 				BB36CB581E6D31210000449B /* UIGestureRecognizer.m in Sources */,
 				BB7FB3A71E7041A20031511B /* UIImageRep.m in Sources */,
+				BB0C56371E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.m in Sources */,
 				BB947C3F1E6EDBAF0056DE97 /* UINavigationController.m in Sources */,
 				BB947C361E6ED4510056DE97 /* UIDevice.m in Sources */,
 				BB36CB3A1E6D005A0000449B /* UIViewController.m in Sources */,
 				BB947C421E6EDC7B0056DE97 /* UIToolbar.m in Sources */,
 				BB36CB501E6D10B70000449B /* UIImage.m in Sources */,
 				BB36CB751E6D8EE70000449B /* UIStringDrawing.m in Sources */,
+				BB0C56471E7293FB006F5DE9 /* UITextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
