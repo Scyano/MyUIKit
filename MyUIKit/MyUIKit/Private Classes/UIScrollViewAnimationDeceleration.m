@@ -74,10 +74,6 @@ static BOOL BounceComponent(NSTimeInterval t, UIScrollViewAnimationDecelerationC
         _y.returnTime = 0;
         _y.bounced = NO;
 
-        // if the velocity is 0, we're going to assume we just need to return it back to position immediately
-        // this works around the case where the content was already at an edge and the user just flicked in
-        // such a way that it should bounce a bit and return to the proper offset. not doing something like this
-        // (along with the associated code in UIScrollView) results in crazy forces being applied in those cases.
         if (_x.velocity == 0) {
             _x.bounced = YES;
             _x.returnTime = self.beginTime;

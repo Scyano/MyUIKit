@@ -16,14 +16,7 @@ typedef NS_ENUM(NSInteger, UITouchEventGesture) {
     UITouchEventGesturePinch,
     UITouchEventGestureRotate,
     UITouchEventGesturePan,
-    
-    
-    UITouchEventGestureScrollWheel,
-    UITouchEventGestureRightClick,
-    UITouchEventGestureMouseMove,
-    UITouchEventGestureMouseEntered,
-    UITouchEventGestureMouseExited,
-    UITouchEventGestureSwipe,
+
 };
 @interface UITouchEvent : UIEvent
 

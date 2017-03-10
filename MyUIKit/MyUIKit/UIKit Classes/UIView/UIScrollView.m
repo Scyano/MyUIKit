@@ -52,6 +52,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self=[super initWithFrame:frame])) {
+        // 为属性赋默认值
         _contentOffset = CGPointZero;
         _contentSize = CGSizeZero;
         _contentInset = UIEdgeInsetsZero;
@@ -72,10 +73,11 @@ const float UIScrollViewDecelerationRateFast = 0.99;
         _bounces = YES;
         _decelerationRate = UIScrollViewDecelerationRateNormal;
         
+        // 添加pan手势
         _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_gestureDidChange:)];
         [self addGestureRecognizer:_panGestureRecognizer];
         
-        
+        // 初始化竖直和水平滚动条
         _verticalScroller = [[UIScroller alloc] init];
         _verticalScroller.delegate = self;
         [self addSubview:_verticalScroller];
@@ -137,6 +139,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 
 - (BOOL)_canScrollHorizontal
 {
+    // scrollEnabled且_contentSize.width大于本事的宽度
     return self.scrollEnabled && (_contentSize.width > self.bounds.size.width);
 }
 
@@ -169,6 +172,8 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     return self.panGestureRecognizer.enabled ;
 }
 
+
+#pragma mark - 取消滚动动画
 - (void)_cancelScrollAnimation
 {
     [_scrollTimer invalidate];
@@ -390,8 +395,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     
     CGPoint finalContentOffset = CGPointZero;
     
-    // if currentPagePercentage is less than 50%, then go to the next page (if any), otherwise snap to the current page
-    
     if (currentPagePercentage.width < 0.5 && (currentPage.width+1) < numberOfWholePages.width) {
         finalContentOffset.x = pageSize.width * (currentPage.width + 1);
     } else {
@@ -420,8 +423,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 {
     const CGPoint confinedOffset = [self _confinedContentOffset:_contentOffset];
     
-    // if we've pulled up the content outside it's bounds, we don't want to register any flick momentum there and instead just
-    // have the animation pull the content back into place immediately.
     if (confinedOffset.x != _contentOffset.x) {
         velocity.x = 0;
     }
@@ -437,11 +438,12 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
 }
 
+#pragma mark - 开始拖拽的时候
 - (void)_beginDragging
 {
     if (!_dragging) {
+        // dragging标志位置为yes，显示
         _dragging = YES;
-        
         _horizontalScroller.alwaysVisible = YES;
         _verticalScroller.alwaysVisible = YES;
         
@@ -517,39 +519,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 
 - (void)_gestureDidChange:(UIGestureRecognizer *)gesture
 {
-    // the scrolling gestures are broken into two components due to the somewhat fundamental differences
-    // in how they are handled by the system. The UIPanGestureRecognizer will only track scrolling gestures
-    // that come from actual touch scroller devices. This does *not* include old fashioned mouse wheels.
-    // the non-standard UIScrollWheelGestureRecognizer is a discrete recognizer which only responds to
-    // non-gesture scroll events such as those from non-touch devices. HOWEVER the system sends momentum
-    // scroll events *after* the touch gesture has ended which allows for us to distinguish the difference
-    // here between actual touch gestures and the momentum gestures and thus feed them into the playing
-    // deceleration animation as we receive them so that we can preserve the system's proper feel for that.
-    
-    // Also important to note is that with a legacy scroll device, each movement of the wheel is going to
-    // trigger a beginDrag, dragged, endDragged sequence. I believe that's an acceptable compromise however
-    // it might cause some potentially strange behavior in client code that is not expecting such rapid
-    // state changes along these lines.
-    
-    // Another note is that only touch-based panning gestures will trigger calls to _dragBy: which means
-    // that only touch devices can possibly pull the content outside of the scroll view's bounds while
-    // active. An old fashioned wheel will not be able to do that and its scroll events are confined to
-    // the bounds of the scroll view.
-    
-    // There are some semi-legacy devices like the magic mouse which 10.6 doesn't seem to consider a true
-    // touch device, so it doesn't send the gestureBegin/ended stuff that's used to recognize such things
-    // but it *will* send momentum events. This means that those devices on 10.6 won't give you the feeling
-    // of being able to grab and pull your content away from the bounds like a proper touch trackpad will.
-    // As of 10.7 it appears Apple fixed this and they do actually send the proper gesture events, so on
-    // 10.7 the magic mouse should end up acting like any other touch input device as far as we're concerned.
-    
-    // Momentum scrolling doesn't work terribly well with how the paging stuff is now handled. Something
-    // could be improved there. I'm not sure if the paging animation should just pretend it's longer to
-    // kind of "mask" the OS' momentum events, or if a flag should be set, or if it should work so that
-    // even in paging mode the deceleration and stuff happens like usual and it only snaps to the correct
-    // page *after* the usual deceleration is done. I can't decide what might be best, but since we
-    // don't use paging mode in Twitterrific at the moment, I'm not suffeciently motivated to worry about it. :)
-    
     if (gesture == _panGestureRecognizer) {
         if (_panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
             [self _beginDragging];
@@ -628,8 +597,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 {
     UIView *zoomingView = [self _zoomingView];
     
-    // it seems weird to return the "a" component of the transform for this, but after some messing around with the real UIKit, I'm
-    // reasonably certain that's how it is doing it.
     return zoomingView? zoomingView.transform.a : 1.f;
 }
 
@@ -661,15 +628,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 {
 }
 
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"<%@: %p; frame = (%.0f %.0f; %.0f %.0f); clipsToBounds = %@; layer = %@; contentOffset = {%.0f, %.0f}>", [self className], self, self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height, (self.clipsToBounds ? @"YES" : @"NO"), self.layer, self.contentOffset.x, self.contentOffset.y];
-}
-
-// after some experimentation, it seems UIScrollView blocks or captures the touch events that fall through and
-// I'm not entirely sure why, but something is certainly going on there so I'm replicating that here. since I
-// suspect it's just stopping everything from going through, I'm also capturing and ignoring some of the
-// mouse-related responder events added by Chameleon rather than passing them along the responder chain, too.
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
 }
@@ -686,37 +644,9 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 {
 }
 
-- (void)scrollWheelMoved:(CGPoint)delta withEvent:(UIEvent *)event
+- (NSString *)description
 {
-}
-
-- (void)rightClick:(UITouch *)touch withEvent:(UIEvent *)event
-{
-}
-
-- (void)mouseMoved:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    const CGPoint point = [touch locationInView:self];
-    const CGFloat scrollerSize = UIScrollerWidthForBoundsSize(self.bounds.size);
-    const BOOL shouldShowHorizontal = CGRectContainsPoint(CGRectInset(_horizontalScroller.frame, -scrollerSize, -scrollerSize), point);
-    const BOOL shouldShowVertical = CGRectContainsPoint(CGRectInset(_verticalScroller.frame, -scrollerSize, -scrollerSize), point);
-    const BOOL shouldShowScrollers = (shouldShowVertical || shouldShowHorizontal || _decelerating);
-    
-    _horizontalScroller.alwaysVisible = shouldShowScrollers;
-    _verticalScroller.alwaysVisible = shouldShowScrollers;
-}
-
-- (void)mouseExited:(UIView *)view withEvent:(UIEvent *)event
-{
-    if (!_decelerating) {
-        _horizontalScroller.alwaysVisible = NO;
-        _verticalScroller.alwaysVisible = NO;
-    }
-}
-
-- (id)mouseCursorForEvent:(UIEvent *)event
-{
-    return nil;
+    return [NSString stringWithFormat:@"<%@: %p; frame = (%.0f %.0f; %.0f %.0f); clipsToBounds = %@; layer = %@; contentOffset = {%.0f, %.0f}>", [self className], self, self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height, (self.clipsToBounds ? @"YES" : @"NO"), self.layer, self.contentOffset.x, self.contentOffset.y];
 }
 
 @end

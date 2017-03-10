@@ -38,7 +38,7 @@ CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
 
 - (id)initWithFrame:(CGRect)frame
 {
-    if ((self=[super initWithFrame:frame])) {
+    if ((self = [super initWithFrame:frame])) {
         self.opaque = NO;
         self.alpha = _UIScrollerMinimumAlpha;
         self.indicatorStyle = UIScrollViewIndicatorStyleDefault;
@@ -248,6 +248,7 @@ CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
     
     [path fill];
 }
+
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {

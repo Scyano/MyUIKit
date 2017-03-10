@@ -1,4 +1,4 @@
-//  完全实现   UIScroller其实是实现UIScrollView的真正类
+//  完全实现
 //  UIScroller.h
 //  MyUIKit
 //
