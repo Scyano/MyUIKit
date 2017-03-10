@@ -150,7 +150,6 @@
 		BB7FB3AE1E7044A20031511B /* UIControl+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+UIPrivate.h"; sourceTree = "<group>"; };
 		BB7FB3AF1E70475A0031511B /* UIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButton.h; sourceTree = "<group>"; };
 		BB7FB3B01E70475A0031511B /* UIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIButton.m; sourceTree = "<group>"; };
-		BB7FB3B21E7051900031511B /* UIScrollView+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UIPrivate.h"; sourceTree = "<group>"; };
 		BB7FB3B31E7051CF0031511B /* UIScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIScroller.h; sourceTree = "<group>"; };
 		BB7FB3B41E7051CF0031511B /* UIScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIScroller.m; sourceTree = "<group>"; };
 		BB7FB3B61E70524A0031511B /* UIBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBezierPath.h; sourceTree = "<group>"; };
@@ -287,7 +286,6 @@
 				BB7FB3A91E7044160031511B /* UIAction.m */,
 				BB7FB3AB1E70446F0031511B /* UIControlAction.h */,
 				BB7FB3AC1E70446F0031511B /* UIControlAction.m */,
-				BB7FB3B21E7051900031511B /* UIScrollView+UIPrivate.h */,
 				BB7FB3B31E7051CF0031511B /* UIScroller.h */,
 				BB7FB3B41E7051CF0031511B /* UIScroller.m */,
 				BB96083A1E715CB700A41A20 /* UIRoundedRectButton.h */,

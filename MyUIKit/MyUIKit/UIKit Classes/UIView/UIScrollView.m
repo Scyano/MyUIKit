@@ -15,6 +15,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UITouch.h"
 
+/*
+ UIScrollView的实现原理(竖直和水平滚动条的实现主要由UIScroller类实现，暂时不讲，等专门讲UIScroller时候再说)
+ 
+ 一.首先在初始化方法中添加一个pan手势，然后监听手势方法，根据手势的开始，移到和介绍分别调用不同的方法
+   1.开始手势的方法很简单，就不说了，主要说手势改变的方法
+ 
+ 
+ */
+
 static const NSTimeInterval UIScrollViewAnimationDuration = 0.33;
 static const NSTimeInterval UIScrollViewQuickAnimationDuration = 0.22;
 static const NSUInteger UIScrollViewScrollAnimationFramesPerSecond = 60;
@@ -47,8 +56,283 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     } _delegateCan;
 }
 
+#pragma mark - pagingEnabled为yes时的动画
+- (UIScrollViewAnimation *)_pageSnapAnimation
+{
+    const CGSize pageSize = self.bounds.size;
+    // floorf向下取整函数
+    const CGSize numberOfWholePages = CGSizeMake(floorf(_contentSize.width/pageSize.width), floorf(_contentSize.height/pageSize.height));
+    const CGSize currentRawPage = CGSizeMake(_contentOffset.x/pageSize.width, _contentOffset.y/pageSize.height);
+    const CGSize currentPage = CGSizeMake(floorf(currentRawPage.width), floorf(currentRawPage.height));
+    const CGSize currentPagePercentage = CGSizeMake(1-(currentRawPage.width-currentPage.width), 1-(currentRawPage.height-currentPage.height));
+    
+    CGPoint finalContentOffset = CGPointZero;
+    
+    // 翻页时能回去的代码
+    if (currentPagePercentage.width < 0.5 && (currentPage.width+1) < numberOfWholePages.width) {
+        finalContentOffset.x = pageSize.width * (currentPage.width + 1);
+    } else {
+        finalContentOffset.x = pageSize.width * currentPage.width;
+    }
+    
+    if (currentPagePercentage.height < 0.5 && (currentPage.height+1) < numberOfWholePages.height) {
+        finalContentOffset.y = pageSize.height * (currentPage.height + 1);
+    } else {
+        finalContentOffset.y = pageSize.height * currentPage.height;
+    }
+    
+    // quickly animate the snap (if necessary)
+    if (!CGPointEqualToPoint(finalContentOffset, _contentOffset)) {
+        return [[UIScrollViewAnimationScroll alloc] initWithScrollView:self
+                                                     fromContentOffset:_contentOffset
+                                                       toContentOffset:finalContentOffset
+                                                              duration:UIScrollViewQuickAnimationDuration
+                                                                 curve:UIScrollViewAnimationScrollCurveQuadraticEaseOut];
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - 正常的带速度的减速动画
+- (UIScrollViewAnimation *)_decelerationAnimationWithVelocity:(CGPoint)velocity
+{
+    const CGPoint confinedOffset = [self _confinedContentOffset:_contentOffset];
+    
+    if (confinedOffset.x != _contentOffset.x) {
+        velocity.x = 0;
+    }
+    if (confinedOffset.y != _contentOffset.y) {
+        velocity.y = 0;
+    }
+    
+    if (!CGPointEqualToPoint(velocity, CGPointZero) || !CGPointEqualToPoint(confinedOffset, _contentOffset)) {
+        return [[UIScrollViewAnimationDeceleration alloc] initWithScrollView:self
+                                                                    velocity:velocity];
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - 开始拖拽的时候
+- (void)_beginDragging
+{
+    if (!_dragging) {
+        // dragging标志位置为yes，显示
+        _dragging = YES;
+        _horizontalScroller.alwaysVisible = YES;
+        _verticalScroller.alwaysVisible = YES;
+        
+        [self _cancelScrollAnimation];
+        
+        if (_delegateCan.scrollViewWillBeginDragging) {
+            [_delegate scrollViewWillBeginDragging:self];
+        }
+    }
+}
+
+#pragma mark - 带减速的结束拖拽方法
+- (void)_endDraggingWithDecelerationVelocity:(CGPoint)velocity
+{
+    if (_dragging) {
+        _dragging = NO;
+        
+        // pagingEnabled默认是NO，根据pagingEnabled的值选择不同的减速动画方式
+        UIScrollViewAnimation *decelerationAnimation = _pagingEnabled? [self _pageSnapAnimation] : [self _decelerationAnimationWithVelocity:velocity];
+        
+        if (_delegateCan.scrollViewDidEndDragging) {
+            [_delegate scrollViewDidEndDragging:self willDecelerate:(decelerationAnimation != nil)];
+        }
+    
+        if (decelerationAnimation) {
+            [self _setScrollAnimation:decelerationAnimation];
+            
+            _horizontalScroller.alwaysVisible = YES;
+            _verticalScroller.alwaysVisible = YES;
+            _decelerating = YES;
+            
+            if (_delegateCan.scrollViewWillBeginDecelerating) {
+                [_delegate scrollViewWillBeginDecelerating:self];
+            }
+        } else {
+            _horizontalScroller.alwaysVisible = NO;
+            _verticalScroller.alwaysVisible = NO;
+            [self _confineContent];
+        }
+    }
+}
 
 
+// 正在拖拽的方法
+- (void)_dragBy:(CGPoint)delta
+{
+    if (_dragging) {
+        _horizontalScroller.alwaysVisible = YES;
+        _verticalScroller.alwaysVisible = YES;
+        
+        const CGPoint originalOffset = self.contentOffset;
+        
+        CGPoint proposedOffset = originalOffset;
+        proposedOffset.x += delta.x;
+        proposedOffset.y += delta.y;
+        
+        const CGPoint confinedOffset = [self _confinedContentOffset:proposedOffset];
+        
+        if (self.bounces) {
+            BOOL shouldHorizontalBounce = (fabs(proposedOffset.x - confinedOffset.x) > 0);
+            BOOL shouldVerticalBounce = (fabs(proposedOffset.y - confinedOffset.y) > 0);
+            
+            if (shouldHorizontalBounce) {
+                proposedOffset.x = originalOffset.x + (0.055 * delta.x);
+            }
+            
+            if (shouldVerticalBounce) {
+                proposedOffset.y = originalOffset.y + (0.055 * delta.y);
+            }
+            
+            [self _setRestrainedContentOffset:proposedOffset];
+        } else {
+            [self setContentOffset:confinedOffset];
+        }
+    }
+}
+
+// pan手势的方法
+- (void)_gestureDidChange:(UIGestureRecognizer *)gesture
+{
+    if (gesture == _panGestureRecognizer) {
+        if (_panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+            [self _beginDragging];
+        } else if (_panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+            [self _dragBy:[_panGestureRecognizer translationInView:self]];
+            [_panGestureRecognizer setTranslation:CGPointZero inView:self];
+        } else if (_panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+            [self _endDraggingWithDecelerationVelocity:[_panGestureRecognizer velocityInView:self]];
+        }
+    }
+}
+/*
+ scrollRectToVisible:animated:与setContentOffset:animated:类似，只不过是将scrollView坐标系内的一块指定区域移到scrollView的窗口中，如果这部分已经存在于窗口中，则什么也不做。
+ */
+- (void)scrollRectToVisible:(CGRect)rect animated:(BOOL)animated
+{
+    const CGRect contentRect = CGRectMake(0,0,_contentSize.width, _contentSize.height);
+    const CGRect visibleRect = self.bounds;
+    // 取交集的函数CGRectIntersection
+    CGRect goalRect = CGRectIntersection(rect, contentRect);
+    
+    if (!CGRectIsNull(goalRect) && !CGRectContainsRect(visibleRect, goalRect)) {
+        
+        goalRect.size.width = MIN(goalRect.size.width, visibleRect.size.width);
+        goalRect.size.height = MIN(goalRect.size.height, visibleRect.size.height);
+        
+        CGPoint offset = self.contentOffset;
+        
+        if (CGRectGetMaxY(goalRect) > CGRectGetMaxY(visibleRect)) {
+            offset.y += CGRectGetMaxY(goalRect) - CGRectGetMaxY(visibleRect);
+        } else if (CGRectGetMinY(goalRect) < CGRectGetMinY(visibleRect)) {
+            offset.y += CGRectGetMinY(goalRect) - CGRectGetMinY(visibleRect);
+        }
+        
+        if (CGRectGetMaxX(goalRect) > CGRectGetMaxX(visibleRect)) {
+            offset.x += CGRectGetMaxX(goalRect) - CGRectGetMaxX(visibleRect);
+        } else if (CGRectGetMinX(goalRect) < CGRectGetMinX(visibleRect)) {
+            offset.x += CGRectGetMinX(goalRect) - CGRectGetMinX(visibleRect);
+        }
+        
+        [self setContentOffset:offset animated:animated];
+    }
+}
+
+// zoom缩放的方法
+- (BOOL)isZoomBouncing
+{
+    return NO;
+}
+
+- (float)zoomScale
+{
+    UIView *zoomingView = [self _zoomingView];
+    
+    return zoomingView? zoomingView.transform.a : 1.f;
+}
+
+- (void)setZoomScale:(float)scale animated:(BOOL)animated
+{
+    UIView *zoomingView = [self _zoomingView];
+    scale = MIN(MAX(scale, _minimumZoomScale), _maximumZoomScale);
+    
+    if (zoomingView && self.zoomScale != scale) {
+        [UIView animateWithDuration:animated? UIScrollViewAnimationDuration : 0
+                              delay:0
+                            options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^(void) {
+                             zoomingView.transform = CGAffineTransformMakeScale(scale, scale);
+                             const CGSize size = zoomingView.frame.size;
+                             zoomingView.layer.position = CGPointMake(size.width/2.f, size.height/2.f);
+                             self.contentSize = size;
+                         }
+                         completion:NULL];
+    }
+}
+
+- (void)setZoomScale:(float)scale
+{
+    [self setZoomScale:scale animated:NO];
+}
+
+- (void)zoomToRect:(CGRect)rect animated:(BOOL)animated
+{
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"<%@: %p; frame = (%.0f %.0f; %.0f %.0f); clipsToBounds = %@; layer = %@; contentOffset = {%.0f, %.0f}>", [self className], self, self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height, (self.clipsToBounds ? @"YES" : @"NO"), self.layer, self.contentOffset.x, self.contentOffset.y];
+}
+
+- (void)dealloc
+{
+    _horizontalScroller.delegate = nil;
+    _verticalScroller.delegate = nil;
+}
+
+#pragma mark - 取消滚动动画
+- (void)_cancelScrollAnimation
+{
+    [_scrollTimer invalidate];
+    _scrollTimer = nil;
+    
+    _scrollAnimation = nil;
+    
+    if (_delegateCan.scrollViewDidEndScrollingAnimation) {
+        [_delegate scrollViewDidEndScrollingAnimation:self];
+    }
+    
+    if (_decelerating) {
+        _horizontalScroller.alwaysVisible = NO;
+        _verticalScroller.alwaysVisible = NO;
+        _decelerating = NO;
+        
+        if (_delegateCan.scrollViewDidEndDecelerating) {
+            [_delegate scrollViewDidEndDecelerating:self];
+        }
+    }
+}
 - (id)initWithFrame:(CGRect)frame
 {
     if ((self=[super initWithFrame:frame])) {
@@ -91,13 +375,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     return self;
 }
 
-- (void)dealloc
-{
-    _horizontalScroller.delegate = nil;
-    _verticalScroller.delegate = nil;
-    
-}
-
+#pragma mark - 设置代理
 - (void)setDelegate:(id)newDelegate
 {
     _delegate = newDelegate;
@@ -171,31 +449,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 {
     return self.panGestureRecognizer.enabled ;
 }
-
-
-#pragma mark - 取消滚动动画
-- (void)_cancelScrollAnimation
-{
-    [_scrollTimer invalidate];
-    _scrollTimer = nil;
-    
-    _scrollAnimation = nil;
-    
-    if (_delegateCan.scrollViewDidEndScrollingAnimation) {
-        [_delegate scrollViewDidEndScrollingAnimation:self];
-    }
-    
-    if (_decelerating) {
-        _horizontalScroller.alwaysVisible = NO;
-        _verticalScroller.alwaysVisible = NO;
-        _decelerating = NO;
-        
-        if (_delegateCan.scrollViewDidEndDecelerating) {
-            [_delegate scrollViewDidEndDecelerating:self];
-        }
-    }
-}
-
 #pragma mark - 真正的减速或滑动动画执行的地方
 - (void)_updateScrollAnimation
 {
@@ -205,6 +458,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
 }
 
+// setContentOffset调用的真正方法是_setScrollAnimation
 - (void)_setScrollAnimation:(UIScrollViewAnimation *)animation
 {
     [self _cancelScrollAnimation];
@@ -217,6 +471,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
 }
 
+// 这个方法的目的是返回设置了_contentInset的真正修正后的contentOffset
 - (CGPoint)_confinedContentOffset:(CGPoint)contentOffset
 {
     const CGRect scrollerBounds = UIEdgeInsetsInsetRect(self.bounds, _contentInset);
@@ -243,6 +498,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     return contentOffset;
 }
 
+// 给self.contentOffset赋值
 - (void)_setRestrainedContentOffset:(CGPoint)offset
 {
     const CGPoint confinedOffset = [self _confinedContentOffset:offset];
@@ -258,12 +514,10 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     
     self.contentOffset = offset;
 }
-
 - (void)_confineContent
 {
     self.contentOffset = [self _confinedContentOffset:_contentOffset];
 }
-
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -271,6 +525,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     const CGRect bounds = self.bounds;
     const CGFloat scrollerSize = UIScrollerWidthForBoundsSize(bounds.size);
     
+    // 设置水平和竖直滚动条的frame
     _verticalScroller.frame = CGRectMake(bounds.origin.x+bounds.size.width-scrollerSize-_scrollIndicatorInsets.right,bounds.origin.y+_scrollIndicatorInsets.top,scrollerSize,bounds.size.height-_scrollIndicatorInsets.top-_scrollIndicatorInsets.bottom);
     _horizontalScroller.frame = CGRectMake(bounds.origin.x+_scrollIndicatorInsets.left,bounds.origin.y+bounds.size.height-scrollerSize-_scrollIndicatorInsets.bottom,bounds.size.width-_scrollIndicatorInsets.left-_scrollIndicatorInsets.right,scrollerSize);
 }
@@ -283,10 +538,12 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 
 - (void)_bringScrollersToFront
 {
+    // 把水平和竖直滚动条置于最上面
     [super bringSubviewToFront:_horizontalScroller];
     [super bringSubviewToFront:_verticalScroller];
 }
 
+// 重写这3个方法，确保水平和竖直滚动条置在最上面
 - (void)addSubview:(UIView *)subview
 {
     [super addSubview:subview];
@@ -334,6 +591,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
                                                                                         curve:UIScrollViewAnimationScrollCurveLinear]];
         }
     } else {
+        // 四舍五入的函数roundf
         _contentOffset.x = roundf(theOffset.x);
         _contentOffset.y = roundf(theOffset.y);
         
@@ -389,160 +647,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     return NO;
 }
 
-
-#pragma mark - pagingEnabled为yes时的动画
-- (UIScrollViewAnimation *)_pageSnapAnimation
-{
-    const CGSize pageSize = self.bounds.size;
-    const CGSize numberOfWholePages = CGSizeMake(floorf(_contentSize.width/pageSize.width), floorf(_contentSize.height/pageSize.height));
-    const CGSize currentRawPage = CGSizeMake(_contentOffset.x/pageSize.width, _contentOffset.y/pageSize.height);
-    const CGSize currentPage = CGSizeMake(floorf(currentRawPage.width), floorf(currentRawPage.height));
-    const CGSize currentPagePercentage = CGSizeMake(1-(currentRawPage.width-currentPage.width), 1-(currentRawPage.height-currentPage.height));
-    
-    CGPoint finalContentOffset = CGPointZero;
-    
-    if (currentPagePercentage.width < 0.5 && (currentPage.width+1) < numberOfWholePages.width) {
-        finalContentOffset.x = pageSize.width * (currentPage.width + 1);
-    } else {
-        finalContentOffset.x = pageSize.width * currentPage.width;
-    }
-    
-    if (currentPagePercentage.height < 0.5 && (currentPage.height+1) < numberOfWholePages.height) {
-        finalContentOffset.y = pageSize.height * (currentPage.height + 1);
-    } else {
-        finalContentOffset.y = pageSize.height * currentPage.height;
-    }
-    
-    // quickly animate the snap (if necessary)
-    if (!CGPointEqualToPoint(finalContentOffset, _contentOffset)) {
-        return [[UIScrollViewAnimationScroll alloc] initWithScrollView:self
-                                                     fromContentOffset:_contentOffset
-                                                       toContentOffset:finalContentOffset
-                                                              duration:UIScrollViewQuickAnimationDuration
-                                                                 curve:UIScrollViewAnimationScrollCurveQuadraticEaseOut];
-    } else {
-        return nil;
-    }
-}
-
-#pragma mark - 正常的带速度的减速动画
-- (UIScrollViewAnimation *)_decelerationAnimationWithVelocity:(CGPoint)velocity
-{
-    const CGPoint confinedOffset = [self _confinedContentOffset:_contentOffset];
-    
-    if (confinedOffset.x != _contentOffset.x) {
-        velocity.x = 0;
-    }
-    if (confinedOffset.y != _contentOffset.y) {
-        velocity.y = 0;
-    }
-    
-    if (!CGPointEqualToPoint(velocity, CGPointZero) || !CGPointEqualToPoint(confinedOffset, _contentOffset)) {
-        return [[UIScrollViewAnimationDeceleration alloc] initWithScrollView:self
-                                                                    velocity:velocity];
-    } else {
-        return nil;
-    }
-}
-
-#pragma mark - 开始拖拽的时候
-- (void)_beginDragging
-{
-    if (!_dragging) {
-        // dragging标志位置为yes，显示
-        _dragging = YES;
-        _horizontalScroller.alwaysVisible = YES;
-        _verticalScroller.alwaysVisible = YES;
-        
-        [self _cancelScrollAnimation];
-        
-        if (_delegateCan.scrollViewWillBeginDragging) {
-            [_delegate scrollViewWillBeginDragging:self];
-        }
-    }
-}
-
-
-#pragma mark - 带减速的结束拖拽方法
-- (void)_endDraggingWithDecelerationVelocity:(CGPoint)velocity
-{
-    if (_dragging) {
-        _dragging = NO;
-        
-        // pagingEnabled默认是NO，根据pagingEnabled的值选择不同的减速动画方式
-        UIScrollViewAnimation *decelerationAnimation = _pagingEnabled? [self _pageSnapAnimation] : [self _decelerationAnimationWithVelocity:velocity];
-        
-        if (_delegateCan.scrollViewDidEndDragging) {
-            [_delegate scrollViewDidEndDragging:self willDecelerate:(decelerationAnimation != nil)];
-        }
-    
-        if (decelerationAnimation) {
-            [self _setScrollAnimation:decelerationAnimation];
-            
-            _horizontalScroller.alwaysVisible = YES;
-            _verticalScroller.alwaysVisible = YES;
-            _decelerating = YES;
-            
-            if (_delegateCan.scrollViewWillBeginDecelerating) {
-                [_delegate scrollViewWillBeginDecelerating:self];
-            }
-        } else {
-            _horizontalScroller.alwaysVisible = NO;
-            _verticalScroller.alwaysVisible = NO;
-            [self _confineContent];
-        }
-    }
-}
-
-
-// 正在拖拽的方法
-- (void)_dragBy:(CGPoint)delta
-{
-    if (_dragging) {
-        _horizontalScroller.alwaysVisible = YES;
-        _verticalScroller.alwaysVisible = YES;
-        
-        const CGPoint originalOffset = self.contentOffset;
-        
-        CGPoint proposedOffset = originalOffset;
-        proposedOffset.x += delta.x;
-        proposedOffset.y += delta.y;
-        
-        const CGPoint confinedOffset = [self _confinedContentOffset:proposedOffset];
-        
-        if (self.bounces) {
-            BOOL shouldHorizontalBounce = (fabs(proposedOffset.x - confinedOffset.x) > 0);
-            BOOL shouldVerticalBounce = (fabs(proposedOffset.y - confinedOffset.y) > 0);
-            
-            if (shouldHorizontalBounce) {
-                proposedOffset.x = originalOffset.x + (0.055 * delta.x);
-            }
-            
-            if (shouldVerticalBounce) {
-                proposedOffset.y = originalOffset.y + (0.055 * delta.y);
-            }
-            
-            [self _setRestrainedContentOffset:proposedOffset];
-        } else {
-            [self setContentOffset:confinedOffset];
-        }
-    }
-}
-
-- (void)_gestureDidChange:(UIGestureRecognizer *)gesture
-{
-    if (gesture == _panGestureRecognizer) {
-        if (_panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
-            [self _beginDragging];
-        } else if (_panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-            [self _dragBy:[_panGestureRecognizer translationInView:self]];
-            [_panGestureRecognizer setTranslation:CGPointZero inView:self];
-        } else if (_panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-            [self _endDraggingWithDecelerationVelocity:[_panGestureRecognizer velocityInView:self]];
-        }
-    }
-}
-
+#pragma mark - UIScroller的_UIScrollerDelegate代理方法
 - (void)_UIScrollerDidBeginDragging:(UIScroller *)scroller withEvent:(UIEvent *)event
 {
     [self _beginDragging];
@@ -567,98 +672,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
     
     [self _endDraggingWithDecelerationVelocity:CGPointZero];
-}
-
-- (void)scrollRectToVisible:(CGRect)rect animated:(BOOL)animated
-{
-    const CGRect contentRect = CGRectMake(0,0,_contentSize.width, _contentSize.height);
-    const CGRect visibleRect = self.bounds;
-    CGRect goalRect = CGRectIntersection(rect, contentRect);
-    
-    if (!CGRectIsNull(goalRect) && !CGRectContainsRect(visibleRect, goalRect)) {
-        
-        // clamp the goal rect to the largest possible size for it given the visible space available
-        // this causes it to prefer the top-left of the rect if the rect is too big
-        goalRect.size.width = MIN(goalRect.size.width, visibleRect.size.width);
-        goalRect.size.height = MIN(goalRect.size.height, visibleRect.size.height);
-        
-        CGPoint offset = self.contentOffset;
-        
-        if (CGRectGetMaxY(goalRect) > CGRectGetMaxY(visibleRect)) {
-            offset.y += CGRectGetMaxY(goalRect) - CGRectGetMaxY(visibleRect);
-        } else if (CGRectGetMinY(goalRect) < CGRectGetMinY(visibleRect)) {
-            offset.y += CGRectGetMinY(goalRect) - CGRectGetMinY(visibleRect);
-        }
-        
-        if (CGRectGetMaxX(goalRect) > CGRectGetMaxX(visibleRect)) {
-            offset.x += CGRectGetMaxX(goalRect) - CGRectGetMaxX(visibleRect);
-        } else if (CGRectGetMinX(goalRect) < CGRectGetMinX(visibleRect)) {
-            offset.x += CGRectGetMinX(goalRect) - CGRectGetMinX(visibleRect);
-        }
-        
-        [self setContentOffset:offset animated:animated];
-    }
-}
-
-- (BOOL)isZoomBouncing
-{
-    return NO;
-}
-
-- (float)zoomScale
-{
-    UIView *zoomingView = [self _zoomingView];
-    
-    return zoomingView? zoomingView.transform.a : 1.f;
-}
-
-- (void)setZoomScale:(float)scale animated:(BOOL)animated
-{
-    UIView *zoomingView = [self _zoomingView];
-    scale = MIN(MAX(scale, _minimumZoomScale), _maximumZoomScale);
-    
-    if (zoomingView && self.zoomScale != scale) {
-        [UIView animateWithDuration:animated? UIScrollViewAnimationDuration : 0
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
-                         animations:^(void) {
-                             zoomingView.transform = CGAffineTransformMakeScale(scale, scale);
-                             const CGSize size = zoomingView.frame.size;
-                             zoomingView.layer.position = CGPointMake(size.width/2.f, size.height/2.f);
-                             self.contentSize = size;
-                         }
-                         completion:NULL];
-    }
-}
-
-- (void)setZoomScale:(float)scale
-{
-    [self setZoomScale:scale animated:NO];
-}
-
-- (void)zoomToRect:(CGRect)rect animated:(BOOL)animated
-{
-}
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"<%@: %p; frame = (%.0f %.0f; %.0f %.0f); clipsToBounds = %@; layer = %@; contentOffset = {%.0f, %.0f}>", [self className], self, self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height, (self.clipsToBounds ? @"YES" : @"NO"), self.layer, self.contentOffset.x, self.contentOffset.y];
 }
 
 @end
