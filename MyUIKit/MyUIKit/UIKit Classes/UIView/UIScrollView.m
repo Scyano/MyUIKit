@@ -196,8 +196,10 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
 }
 
+#pragma mark - 真正的减速或滑动动画执行的地方
 - (void)_updateScrollAnimation
 {
+    // _scrollAnimation animate是滑动动画或减速动画之一
     if ([_scrollAnimation animate]) {
         [self _cancelScrollAnimation];
     }
@@ -206,10 +208,11 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 - (void)_setScrollAnimation:(UIScrollViewAnimation *)animation
 {
     [self _cancelScrollAnimation];
-    
+    // 赋值后的_scrollAnimation的真实类型肯定是UIScrollViewAnimationScroll或UIScrollViewAnimationDeceleration之一
     _scrollAnimation = animation;
     
     if (!_scrollTimer) {
+        // UIScrollViewScrollAnimationFramesPerSecond = 60, 也就是一秒钟调60次
         _scrollTimer = [NSTimer scheduledTimerWithTimeInterval:1/(NSTimeInterval)UIScrollViewScrollAnimationFramesPerSecond target:self selector:@selector(_updateScrollAnimation) userInfo:nil repeats:YES];
     }
 }
@@ -313,6 +316,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     [self setNeedsLayout];
 }
 
+#pragma mark - 核心方法
 - (void)setContentOffset:(CGPoint)theOffset animated:(BOOL)animated
 {
     if (animated) {
@@ -385,6 +389,8 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     return NO;
 }
 
+
+#pragma mark - pagingEnabled为yes时的动画
 - (UIScrollViewAnimation *)_pageSnapAnimation
 {
     const CGSize pageSize = self.bounds.size;
@@ -419,6 +425,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
 }
 
+#pragma mark - 正常的带速度的减速动画
 - (UIScrollViewAnimation *)_decelerationAnimationWithVelocity:(CGPoint)velocity
 {
     const CGPoint confinedOffset = [self _confinedContentOffset:_contentOffset];
@@ -455,17 +462,20 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
 }
 
+
+#pragma mark - 带减速的结束拖拽方法
 - (void)_endDraggingWithDecelerationVelocity:(CGPoint)velocity
 {
     if (_dragging) {
         _dragging = NO;
         
+        // pagingEnabled默认是NO，根据pagingEnabled的值选择不同的减速动画方式
         UIScrollViewAnimation *decelerationAnimation = _pagingEnabled? [self _pageSnapAnimation] : [self _decelerationAnimationWithVelocity:velocity];
         
         if (_delegateCan.scrollViewDidEndDragging) {
             [_delegate scrollViewDidEndDragging:self willDecelerate:(decelerationAnimation != nil)];
         }
-        
+    
         if (decelerationAnimation) {
             [self _setScrollAnimation:decelerationAnimation];
             
@@ -484,6 +494,8 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     }
 }
 
+
+// 正在拖拽的方法
 - (void)_dragBy:(CGPoint)delta
 {
     if (_dragging) {

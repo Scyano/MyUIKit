@@ -1,4 +1,4 @@
-//
+//  UIScrollViewAnimation UIScrollView所有动画类的父类
 //  UIScrollViewAnimation.h
 //  MyUIKit
 //
