@@ -20,9 +20,18 @@
  
  一.首先在初始化方法中添加一个pan手势，然后监听手势方法，根据手势的开始，移到和介绍分别调用不同的方法
    1.开始手势的方法很简单，就不说了，主要说手势改变的方法
+   2.手势改变的方法_dragBy，由originalOffset加上偏移量，得到真正的proposedOffset，后来这个方法根据bounces的值不同，分为2种情况。。先说说最常见的情况，调用setContentOffset，其实setContentOffset调用的真正方法是_setScrollAnimation，_setScrollAnimation其实就是开了个定时器，每秒调用60次的[_scrollAnimation animate]方法。
+      这里特别要说明下大概470行左右的代码， _scrollAnimation = animation;
+    // 赋值后的_scrollAnimation的真实类型肯定是UIScrollViewAnimationScroll或UIScrollViewAnimationDeceleration之一
+        _scrollAnimation = animation;
+       [UIScrollViewAnimationScroll animate]和[UIScrollViewAnimationDeceleration animate]方法去UIScrollViewAnimationScroll和UIScrollViewAnimationDeceleration的animate方法实现
  
+    3.手势结束时候，调用_endDraggingWithDecelerationVelocity方法，这里pagingEnabled要注意下，2种动画方法的实现
+    // pagingEnabled默认是NO，根据pagingEnabled的值选择不同的减速动画方式
+    UIScrollViewAnimation *decelerationAnimation = _pagingEnabled? [self _pageSnapAnimation] : [self _decelerationAnimationWithVelocity:velocity];
  
  */
+// 文字能说明的东西有限，细节的情况还请多看这个类的源码，就在下面
 
 static const NSTimeInterval UIScrollViewAnimationDuration = 0.33;
 static const NSTimeInterval UIScrollViewQuickAnimationDuration = 0.22;
@@ -32,7 +41,7 @@ const float UIScrollViewDecelerationRateNormal = 0.998;
 const float UIScrollViewDecelerationRateFast = 0.99;
 
 
-@interface UIScrollView () <_UIScrollerDelegate>
+@interface UIScrollView ()
 @end
 @implementation UIScrollView 
 {
@@ -56,6 +65,46 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     } _delegateCan;
 }
 
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self=[super initWithFrame:frame])) {
+        // 为属性赋默认值
+        _contentOffset = CGPointZero;
+        _contentSize = CGSizeZero;
+        _contentInset = UIEdgeInsetsZero;
+        _scrollIndicatorInsets = UIEdgeInsetsZero;
+        _showsVerticalScrollIndicator = YES;
+        _showsHorizontalScrollIndicator = YES;
+        _maximumZoomScale = 1;
+        _minimumZoomScale = 1;
+        _scrollsToTop = YES;
+        _indicatorStyle = UIScrollViewIndicatorStyleDefault;
+        _delaysContentTouches = YES;
+        _canCancelContentTouches = YES;
+        _pagingEnabled = NO;
+        _bouncesZoom = NO;
+        _zooming = NO;
+        _alwaysBounceVertical = NO;
+        _alwaysBounceHorizontal = NO;
+        _bounces = YES;
+        _decelerationRate = UIScrollViewDecelerationRateNormal;
+        
+        // 添加pan手势
+        _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_gestureDidChange:)];
+        [self addGestureRecognizer:_panGestureRecognizer];
+        
+        // 初始化竖直和水平滚动条
+        _verticalScroller = [[UIScroller alloc] init];
+        [self addSubview:_verticalScroller];
+        
+        _horizontalScroller = [[UIScroller alloc] init];
+        [self addSubview:_horizontalScroller];
+        
+        self.clipsToBounds = YES;
+    }
+    return self;
+}
+
 #pragma mark - pagingEnabled为yes时的动画
 - (UIScrollViewAnimation *)_pageSnapAnimation
 {
@@ -69,6 +118,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     CGPoint finalContentOffset = CGPointZero;
     
     // 翻页时能回去的代码
+    // 翻页少于50%回去，翻页多余50%时去下一页
     if (currentPagePercentage.width < 0.5 && (currentPage.width+1) < numberOfWholePages.width) {
         finalContentOffset.x = pageSize.width * (currentPage.width + 1);
     } else {
@@ -81,7 +131,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
         finalContentOffset.y = pageSize.height * currentPage.height;
     }
     
-    // quickly animate the snap (if necessary)
     if (!CGPointEqualToPoint(finalContentOffset, _contentOffset)) {
         return [[UIScrollViewAnimationScroll alloc] initWithScrollView:self
                                                      fromContentOffset:_contentOffset
@@ -98,6 +147,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 {
     const CGPoint confinedOffset = [self _confinedContentOffset:_contentOffset];
     
+    // 如果我们拖拽超出了它的边界，就让它回到边界，并且带动画
     if (confinedOffset.x != _contentOffset.x) {
         velocity.x = 0;
     }
@@ -305,12 +355,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
     return [NSString stringWithFormat:@"<%@: %p; frame = (%.0f %.0f; %.0f %.0f); clipsToBounds = %@; layer = %@; contentOffset = {%.0f, %.0f}>", [self className], self, self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height, (self.clipsToBounds ? @"YES" : @"NO"), self.layer, self.contentOffset.x, self.contentOffset.y];
 }
 
-- (void)dealloc
-{
-    _horizontalScroller.delegate = nil;
-    _verticalScroller.delegate = nil;
-}
-
 #pragma mark - 取消滚动动画
 - (void)_cancelScrollAnimation
 {
@@ -333,47 +377,7 @@ const float UIScrollViewDecelerationRateFast = 0.99;
         }
     }
 }
-- (id)initWithFrame:(CGRect)frame
-{
-    if ((self=[super initWithFrame:frame])) {
-        // 为属性赋默认值
-        _contentOffset = CGPointZero;
-        _contentSize = CGSizeZero;
-        _contentInset = UIEdgeInsetsZero;
-        _scrollIndicatorInsets = UIEdgeInsetsZero;
-        _showsVerticalScrollIndicator = YES;
-        _showsHorizontalScrollIndicator = YES;
-        _maximumZoomScale = 1;
-        _minimumZoomScale = 1;
-        _scrollsToTop = YES;
-        _indicatorStyle = UIScrollViewIndicatorStyleDefault;
-        _delaysContentTouches = YES;
-        _canCancelContentTouches = YES;
-        _pagingEnabled = NO;
-        _bouncesZoom = NO;
-        _zooming = NO;
-        _alwaysBounceVertical = NO;
-        _alwaysBounceHorizontal = NO;
-        _bounces = YES;
-        _decelerationRate = UIScrollViewDecelerationRateNormal;
-        
-        // 添加pan手势
-        _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_gestureDidChange:)];
-        [self addGestureRecognizer:_panGestureRecognizer];
-        
-        // 初始化竖直和水平滚动条
-        _verticalScroller = [[UIScroller alloc] init];
-        _verticalScroller.delegate = self;
-        [self addSubview:_verticalScroller];
-        
-        _horizontalScroller = [[UIScroller alloc] init];
-        _horizontalScroller.delegate = self;
-        [self addSubview:_horizontalScroller];
-        
-        self.clipsToBounds = YES;
-    }
-    return self;
-}
+
 
 #pragma mark - 设置代理
 - (void)setDelegate:(id)newDelegate
@@ -645,33 +649,6 @@ const float UIScrollViewDecelerationRateFast = 0.99;
 - (BOOL)isTracking
 {
     return NO;
-}
-
-#pragma mark - UIScroller的_UIScrollerDelegate代理方法
-- (void)_UIScrollerDidBeginDragging:(UIScroller *)scroller withEvent:(UIEvent *)event
-{
-    [self _beginDragging];
-}
-
-- (void)_UIScroller:(UIScroller *)scroller contentOffsetDidChange:(CGFloat)newOffset
-{
-    if (scroller == _verticalScroller) {
-        [self setContentOffset:CGPointMake(self.contentOffset.x,newOffset) animated:NO];
-    } else if (scroller == _horizontalScroller) {
-        [self setContentOffset:CGPointMake(newOffset,self.contentOffset.y) animated:NO];
-    }
-}
-
-- (void)_UIScrollerDidEndDragging:(UIScroller *)scroller withEvent:(UIEvent *)event
-{
-    UITouch *touch = [[event allTouches] anyObject];
-    const CGPoint point = [touch locationInView:self];
-    
-    if (!CGRectContainsPoint(scroller.frame,point)) {
-        scroller.alwaysVisible = NO;
-    }
-    
-    [self _endDraggingWithDecelerationVelocity:CGPointZero];
 }
 
 @end

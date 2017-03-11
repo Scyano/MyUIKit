@@ -8,7 +8,6 @@
 
 #import "UIColorRep.h"
 #import "UIImageRep.h"
-#import <AppKit/NSApplication.h>
 
 static void drawPatternImage(void *info, CGContextRef ctx)
 {
@@ -19,13 +18,7 @@ static void drawPatternImage(void *info, CGContextRef ctx)
     
     const CGRect patternRect = {CGPointZero, rep.imageSize};
     const CGRect deviceRect = CGContextConvertRectToDeviceSpace(ctx, patternRect);
-    
-    if (floorf(NSAppKitVersionNumber) != NSAppKitVersionNumber10_7) {
-        if (CGPointEqualToPoint(patternRect.origin, deviceRect.origin)) {
-            CGContextTranslateCTM(ctx, 0, patternRect.size.height);
-            CGContextScaleCTM(ctx, 1, -1);
-        }
-    }
+
     
     [rep drawInRect:patternRect fromRect:CGRectNull];
     

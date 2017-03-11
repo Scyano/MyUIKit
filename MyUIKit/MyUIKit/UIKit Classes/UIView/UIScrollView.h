@@ -1,4 +1,4 @@
-//
+//  UIScrollView 完全实现ok （重点）
 //  UIScrollView.h
 //  MyUIKit
 //
@@ -42,7 +42,7 @@ extern const float UIScrollViewDecelerationRateFast;
 - (void)setZoomScale:(float)scale animated:(BOOL)animated;
 - (void)zoomToRect:(CGRect)rect animated:(BOOL)animated;
 - (void)setContentOffset:(CGPoint)theOffset animated:(BOOL)animated;
-- (void)flashScrollIndicators;		// does nothing
+- (void)flashScrollIndicators;
 
 @property (nonatomic) CGSize contentSize;
 @property (nonatomic) CGPoint contentOffset;

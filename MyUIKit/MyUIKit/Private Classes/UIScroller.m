@@ -4,15 +4,20 @@
 //
 //  Created by 邓翔 on 17/3/8.
 //  Copyright © 2017年 Jack. All rights reserved.
-//
+//  UIScroller是个非常有意思的类，下面说说它的实现原理
+/*
+   UIScroller的实现原理：
+   其实很简单，UIScroller就是一个比较细的UIView，有意思的地方是它会变长或变短，它会根据当前页面跟UIScrollView的contentSize.height的比例来变化长度，
+   看懂knobSize和knobRect就懂了
+ 
+ */
+
 
 #import "UIScroller.h"
 #import "UIColor.h"
 #import "UIBezierPath.h"
 #import "UITouch.h"
 
-static const BOOL _UIScrollerGutterEnabled = NO;
-static const BOOL _UIScrollerJumpToSpotThatIsClicked = NO;
 static const CGFloat _UIScrollerMinimumAlpha = 0;
 
 CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
@@ -52,6 +57,8 @@ CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
     [super setFrame:frame];
 }
 
+
+#pragma mark - 淡出其实就是个UIView动画，改变透明度为0
 - (void)_fadeOut
 {
     [_fadeTimer invalidate];
@@ -72,6 +79,7 @@ CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
     _fadeTimer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(_fadeOut) userInfo:nil repeats:NO];
 }
 
+#pragma mark - 淡入其实就是个UIView动画，改变透明度为1
 - (void)_fadeIn
 {
     [_fadeTimer invalidate];
@@ -123,8 +131,15 @@ CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
 
 - (CGFloat)knobSize
 {
+    /*
+    //    _verticalScroller.contentSize = _contentSize.height;
+    //    _verticalScroller.contentOffset = _contentOffset.y;
+    //    _horizontalScroller.contentSize = _contentSize.width;
+    //    _horizontalScroller.contentOffset = _contentOffset.x;
+     */
     const CGRect bounds = self.bounds;
     const CGFloat dimension = MAX(bounds.size.width, bounds.size.height);
+    // 这里是求出自己跟_contentSize的比例，_contentSize是什么这个方法的133到139我写了，是UIScrollView里面拷贝过来的代码
     const CGFloat knobScale = MIN(1, (dimension / _contentSize));
     return MAX((dimension * knobScale), 50);
 }
@@ -156,67 +171,6 @@ CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
     _contentSize = newContentSize;
     [self setNeedsDisplay];
 }
-
-- (void)setContentOffsetWithLastTouch
-{
-    const CGRect bounds = self.bounds;
-    const CGFloat dimension = _isVertical? bounds.size.height : bounds.size.width;
-    const CGFloat maxContentOffset = _contentSize - dimension;
-    const CGFloat knobSize = [self knobSize];
-    const CGFloat point = _isVertical? _lastTouchLocation.y : _lastTouchLocation.x;
-    const CGFloat knobPosition = MIN(MAX(0, point-_dragOffset), (dimension-knobSize));
-    const CGFloat contentOffset = (knobPosition / (dimension-knobSize)) * maxContentOffset;
-    
-    [self setContentOffset:contentOffset];
-}
-
-- (void)pageUp
-{
-    if (_isVertical) {
-        [self setContentOffset:_contentOffset-self.bounds.size.height];
-    } else {
-        [self setContentOffset:_contentOffset-self.bounds.size.width];
-    }
-}
-
-- (void)pageDown
-{
-    if (_isVertical) {
-        [self setContentOffset:_contentOffset+self.bounds.size.height];
-    } else {
-        [self setContentOffset:_contentOffset+self.bounds.size.width];
-    }
-}
-
-- (void)autoPageContent
-{
-    const CGRect knobRect = [self knobRect];
-    
-    if (!CGRectContainsPoint(knobRect, _lastTouchLocation) && CGRectContainsPoint(self.bounds, _lastTouchLocation)) {
-        BOOL shouldPageUp;
-        
-        if (_isVertical) {
-            shouldPageUp = (_lastTouchLocation.y < knobRect.origin.y);
-        } else {
-            shouldPageUp = (_lastTouchLocation.x < knobRect.origin.x);
-        }
-        
-        if (shouldPageUp) {
-            [self pageUp];
-        } else {
-            [self pageDown];
-        }
-        
-        [_delegate _UIScroller:self contentOffsetDidChange:_contentOffset];
-    }
-}
-
-- (void)startHoldPaging
-{
-    [_holdTimer invalidate];
-    _holdTimer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(autoPageContent) userInfo:nil repeats:YES];
-}
-
 - (void)drawRect:(CGRect)rect
 {
     CGRect knobRect = [self knobRect];
@@ -248,68 +202,5 @@ CGFloat UIScrollerWidthForBoundsSize(CGSize boundsSize)
     
     [path fill];
 }
-
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    _lastTouchLocation = [[touches anyObject] locationInView:self];
-    const CGRect knobRect = [self knobRect];
-    
-    if (CGRectContainsPoint(knobRect,_lastTouchLocation)) {
-        if (_isVertical) {
-            _dragOffset = _lastTouchLocation.y - knobRect.origin.y;
-        } else {
-            _dragOffset = _lastTouchLocation.x - knobRect.origin.x;
-        }
-        _draggingKnob = YES;
-        [_delegate _UIScrollerDidBeginDragging:self withEvent:event];
-    } else if (_UIScrollerGutterEnabled) {
-        [_delegate _UIScrollerDidBeginDragging:self withEvent:event];
-        
-        if (_UIScrollerJumpToSpotThatIsClicked) {
-            _dragOffset = [self knobSize] / 2.f;
-            _draggingKnob = YES;
-            [self setContentOffsetWithLastTouch];
-            [_delegate _UIScroller:self contentOffsetDidChange:_contentOffset];
-        } else {
-            [self autoPageContent];
-            _holdTimer = [NSTimer scheduledTimerWithTimeInterval:0.33 target:self selector:@selector(startHoldPaging) userInfo:nil repeats:NO];
-        }
-    }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    _lastTouchLocation = [[touches anyObject] locationInView:self];
-    
-    if (_draggingKnob) {
-        [self setContentOffsetWithLastTouch];
-        [_delegate _UIScroller:self contentOffsetDidChange:_contentOffset];
-    }
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if (_draggingKnob) {
-        _draggingKnob = NO;
-        [_delegate _UIScrollerDidEndDragging:self withEvent:event];
-    } else if (_holdTimer) {
-        [_delegate _UIScrollerDidEndDragging:self withEvent:event];
-        [_holdTimer invalidate];
-        _holdTimer = nil;
-    }
-}
-
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    UIView *hit = [super hitTest:point withEvent:event];
-    
-    if (hit == self && !_UIScrollerGutterEnabled && !CGRectContainsPoint([self knobRect],point)) {
-        hit = nil;
-    }
-    
-    return hit;
-}
-
 
 @end

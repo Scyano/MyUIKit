@@ -1,4 +1,4 @@
-
+// 滚动动画的实现   完全实现ok
 #import "UIScrollViewAnimation.h"
 
 typedef NS_ENUM(NSInteger, UIScrollViewAnimationScrollCurve) {

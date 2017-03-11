@@ -1,4 +1,4 @@
-
+// 减速动画的类   完全实现ok
 #import "UIScrollViewAnimation.h"
 
 typedef struct {
@@ -12,7 +12,7 @@ typedef struct {
 
 @interface UIScrollViewAnimationDeceleration : UIScrollViewAnimation
 - (id)initWithScrollView:(UIScrollView *)sv velocity:(CGPoint)v;
-- (void)momentumScrollBy:(CGPoint)delta;
+
 @end
 
 

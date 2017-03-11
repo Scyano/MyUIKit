@@ -46,7 +46,4 @@ CGFloat UIQuadraticEaseOut(CGFloat t, CGFloat start, CGFloat end)
     return YES;
 }
 
-- (void)momentumScrollBy:(CGPoint)delta
-{
-    // does nothing
-}@end
+@end

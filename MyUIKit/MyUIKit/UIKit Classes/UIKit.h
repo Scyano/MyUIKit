@@ -26,10 +26,12 @@
 #import "UITouch.h"  //  完全实现
 
 #import "UIView.h"  //  完全实现
+#import "UIScrollView.h" // 完全实现ok（重点）
 
 #import "UITableViewCell.h"  //  完全实现
 #import "UIViewController.h"  // 完全实现
 
 #import "UIBezierPath.h"  // 完全实现
+
 
 #endif /* UIKit_h */

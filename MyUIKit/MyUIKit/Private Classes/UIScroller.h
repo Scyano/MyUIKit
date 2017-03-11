@@ -1,4 +1,4 @@
-//  完全实现
+//  完全实现ok  UIScrollerView的水平或竖直滚动条
 //  UIScroller.h
 //  MyUIKit
 //
@@ -11,19 +11,12 @@
 
 @class UIScroller;
 
-@protocol _UIScrollerDelegate
-- (void)_UIScrollerDidBeginDragging:(UIScroller *)scroller withEvent:(UIEvent *)event;
-- (void)_UIScroller:(UIScroller *)scroller contentOffsetDidChange:(CGFloat)newOffset;
-- (void)_UIScrollerDidEndDragging:(UIScroller *)scroller withEvent:(UIEvent *)event;
-@end
-
 @interface UIScroller : UIView
 
 - (void)flash;
 - (void)quickFlash;
 
 @property (nonatomic, assign) BOOL alwaysVisible;
-@property (nonatomic, assign) id<_UIScrollerDelegate> delegate;
 @property (nonatomic, assign) CGFloat contentSize;
 @property (nonatomic, assign) CGFloat contentOffset;
 @property (nonatomic) UIScrollViewIndicatorStyle indicatorStyle;

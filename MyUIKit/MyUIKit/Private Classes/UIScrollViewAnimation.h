@@ -1,4 +1,4 @@
-//  UIScrollViewAnimation UIScrollView所有动画类的父类
+//  UIScrollViewAnimation UIScrollView所有动画类的父类  完全实现ok
 //  UIScrollViewAnimation.h
 //  MyUIKit
 //
@@ -12,7 +12,6 @@
 @interface UIScrollViewAnimation : NSObject
 - (id)initWithScrollView:(UIScrollView *)sv;
 - (BOOL)animate;
-- (void)momentumScrollBy:(CGPoint)delta;
 
 @property (nonatomic, readonly) UIScrollView *scrollView;
 @property (nonatomic, assign) NSTimeInterval beginTime;

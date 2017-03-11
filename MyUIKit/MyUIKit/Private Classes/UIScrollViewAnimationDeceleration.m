@@ -112,22 +112,4 @@ static BOOL BounceComponent(NSTimeInterval t, UIScrollViewAnimationDecelerationC
     return finished;
 }
 
-- (void)momentumScrollBy:(CGPoint)delta
-{
-    _lastMomentumTime = [NSDate timeIntervalSinceReferenceDate];
-    
-    if (!_x.bounced) {
-        _x.position += delta.x;
-        _x.velocity = ClampedVelocty(delta.x / (_lastMomentumTime - _x.decelerateTime));
-        _x.decelerateTime = _lastMomentumTime;
-    }
-
-    if (!_y.bounced) {
-        _y.position += delta.y;
-        _y.velocity = ClampedVelocty(delta.y / (_lastMomentumTime - _y.decelerateTime));
-        _y.decelerateTime = _lastMomentumTime;
-    }
-}
-
-
 @end
