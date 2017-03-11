@@ -1,4 +1,4 @@
-//  UITableViewCell  完全实现
+//  UITableViewCell  完全实现ok
 //  UITableViewCell.h
 //  MyUIKit
 //

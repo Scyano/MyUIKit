@@ -1,4 +1,4 @@
-//  完全实现
+//  完全实现ok
 #import "UITableViewCell.h"
 
 @interface UITableViewCell (UIPrivate)

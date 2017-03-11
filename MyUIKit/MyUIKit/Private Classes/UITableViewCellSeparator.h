@@ -1,4 +1,4 @@
-//  完全实现  UITableViewCellSeparator  这个类其实就是高度为1的分割线
+//  完全实现ok  UITableViewCellSeparator  这个类其实就是高度为1的分割线
 //  UITableViewCellSeparator.h
 //  MyUIKit
 //

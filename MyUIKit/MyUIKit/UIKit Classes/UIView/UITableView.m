@@ -59,8 +59,17 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
 {
     if ((self=[super initWithFrame:frame])) {
         _style = theStyle;
+        
+        //_cachedCells 用于保存正在显示的Cell对象的引用
         _cachedCells = [[NSMutableDictionary alloc] init];
+        
+        //在计算完每个 section 包含的 section 头部，尾部视图的高度，和包含的每个 row 的整体高度后，
+        //使用 UITableViewSection 对象对这些高度值进行保存，并将该 UITableViewSection 对象的引用
+        //保存到 _sections中。在指定完 dataSource 后，至下一次数据源变化调用 reloadData 方法，
+        //由于数据源没有变化，section 相关的高度值是不会变化，只需计算一次，所以需要缓存起来。
         _sections = [[NSMutableArray alloc] init];
+        
+         //_reusableCells用于保存存在但未显示在界面上的可复用的Cell
         _reusableCells = [[NSMutableSet alloc] init];
         
         self.separatorColor = [UIColor colorWithRed:.88f green:.88f blue:.88f alpha:1];
@@ -80,38 +89,6 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
     return self;
 }
 
-
-- (void)setDataSource:(id<UITableViewDataSource>)newSource
-{
-    _dataSource = newSource;
-    
-    _dataSourceHas.numberOfSectionsInTableView = [_dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)];
-    _dataSourceHas.titleForHeaderInSection = [_dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)];
-    _dataSourceHas.titleForFooterInSection = [_dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)];
-    _dataSourceHas.commitEditingStyle = [_dataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)];
-    _dataSourceHas.canEditRowAtIndexPath = [_dataSource respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)];
-    
-    [self _setNeedsReload];
-}
-
-- (void)setDelegate:(id<UITableViewDelegate>)newDelegate
-{
-    [super setDelegate:newDelegate];
-    
-    _delegateHas.heightForRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
-    _delegateHas.heightForHeaderInSection = [newDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)];
-    _delegateHas.heightForFooterInSection = [newDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)];
-    _delegateHas.viewForHeaderInSection = [newDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)];
-    _delegateHas.viewForFooterInSection = [newDelegate respondsToSelector:@selector(tableView:viewForFooterInSection:)];
-    _delegateHas.willSelectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)];
-    _delegateHas.didSelectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)];
-    _delegateHas.willDeselectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:willDeselectRowAtIndexPath:)];
-    _delegateHas.didDeselectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)];
-    _delegateHas.willBeginEditingRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:willBeginEditingRowAtIndexPath:)];
-    _delegateHas.didEndEditingRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)];
-    _delegateHas.titleForDeleteConfirmationButtonForRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:)];
-}
-
 - (void)setRowHeight:(CGFloat)newHeight
 {
     _rowHeight = newHeight;
@@ -120,22 +97,15 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
 
 - (void)_updateSectionsCache
 {
-    // uses the dataSource to rebuild the cache.
-    // if there's no dataSource, this can't do anything else.
-    // note that I'm presently caching and hanging on to views and titles for section headers which is something
-    // the real UIKit appears to fetch more on-demand than this. so far this has not been a problem.
-    
-    // remove all previous section header/footer views
     for (UITableViewSection *previousSectionRecord in _sections) {
         [previousSectionRecord.headerView removeFromSuperview];
         [previousSectionRecord.footerView removeFromSuperview];
     }
     
-    // clear the previous cache
     [_sections removeAllObjects];
     
+    //如果数据源为空，不做任何处理
     if (_dataSource) {
-        // compute the heights/offsets of everything
         const CGFloat defaultRowHeight = _rowHeight ?: _UITableViewDefaultRowHeight;
         const NSInteger numberOfSections = [self numberOfSections];
         for (NSInteger section=0; section<numberOfSections; section++) {
@@ -173,9 +143,12 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
                 sectionRecord.footerHeight = 0;
             }
             
+            //section 中每个 row 的高度使用了数组指针来保存
             CGFloat *rowHeights = malloc(numberOfRowsInSection * sizeof(CGFloat));
             CGFloat totalRowsHeight = 0;
             
+            //每行 row 的高度通过数据源实现的协议方法 heightForRowAtIndexPath: 返回，
+            //若数据源没有实现该协议方法则使用默认的高度
             for (NSInteger row=0; row<numberOfRowsInSection; row++) {
                 const CGFloat rowHeight = _delegateHas.heightForRowAtIndexPath? [self.delegate tableView:self heightForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]] : defaultRowHeight;
                 rowHeights[row] = rowHeight;
@@ -186,6 +159,7 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
             [sectionRecord setNumberOfRows:numberOfRowsInSection withHeights:rowHeights];
             free(rowHeights);
             
+            //将所有高度信息缓存起来
             [_sections addObject:sectionRecord];
         }
     }
@@ -224,12 +198,10 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
     self.contentSize = CGSizeMake(0,height);
 }
 
+#pragma mark - 这个方法实现了UITableViewCell的复用
 - (void)_layoutTableView
 {
-    // lays out headers and rows that are visible at the time. this should also do cell
-    // dequeuing and keep a list of all existing cells that are visible and those
-    // that exist but are not visible and are reusable
-    // if there's no section cache, no rows will be laid out but the header/footer will (if any).
+    //这个方法实现了 UITableViewCell 的复用
     
     const CGSize boundsSize = self.bounds.size;
     const CGFloat contentOffset = self.contentOffset.y;
@@ -382,13 +354,6 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
     return CGRectZero;
 }
 
-- (void) beginUpdates
-{
-}
-
-- (void)endUpdates
-{
-}
 
 - (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -522,7 +487,8 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
 
 - (void)reloadData
 {
-    // clear the caches and remove the cells since everything is going to change
+    //当数据源更新后，需要将所有显示的UITableViewCell和未显示可复用的UITableViewCell全部从父视图移除，
+    //重新创建
     [[_cachedCells allValues] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_reusableCells makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_reusableCells removeAllObjects];
@@ -532,7 +498,7 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
     _selectedRow = nil;
     _highlightedRow = nil;
     
-    // trigger the section cache to be repopulated
+     // 重新计算 section 相关的高度值，并缓存起来
     [self _updateSectionsCache];
     [self _setContentSize];
     
@@ -553,15 +519,25 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
 
 - (void)_setNeedsReload
 {
+    // 打上了需要reload的标志
     _needsReload = YES;
     [self setNeedsLayout];
 }
 
 - (void)layoutSubviews
 {
+    //对子视图进行布局，该方法会在第一次设置数据源调用 setNeedsLayout 方法后自动调用。
+    //并且 UITableView 是继承自 UIScrollview ，当滚动时也会触发该方法的调用
+    
     _backgroundView.frame = self.bounds;
+    
+    //在进行布局前必须确保 section 已经缓存了所有高度相关的信息
     [self _reloadDataIfNeeded];
+    
+    //对 UITableView 的 section 进行布局，包含 section 的头部，尾部，每一行 Cell
     [self _layoutTableView];
+    
+    //对 UITableView 的头视图，尾视图进行布局
     [super layoutSubviews];
 }
 
@@ -687,25 +663,6 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
     [self _scrollRectToVisible:[self rectForRowAtIndexPath:indexPath] atScrollPosition:scrollPosition animated:animated];
 }
 
-- (UITableViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier
-{
-    for (UITableViewCell *cell in _reusableCells) {
-        if ([cell.reuseIdentifier isEqualToString:identifier]) {
-            UITableViewCell *strongCell = cell;
-            
-            // the above strongCell reference seems totally unnecessary, but without it ARC apparently
-            // ends up releasing the cell when it's removed on this line even though we're referencing it
-            // later in this method by way of the cell variable. I do not like this.
-            [_reusableCells removeObject:cell];
-            
-            [strongCell prepareForReuse];
-            return strongCell;
-        }
-    }
-    
-    return nil;
-}
-
 - (void)setEditing:(BOOL)editing animated:(BOOL)animate
 {
     _editing = editing;
@@ -788,12 +745,84 @@ const CGFloat _UITableViewDefaultRowHeight = 43;
 
 
 
-// these can come down to use from AppKit if the table view somehow ends up in the responder chain.
-// arrow keys move the selection, page up/down keys scroll the view
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark - 根据identifier取出对应的UITableViewCell
+- (UITableViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier
+{
+    //遍历_reusableCells，根据identifier取对应的UITableViewCell，取到就返回，否则返回nil
+    for (UITableViewCell *cell in _reusableCells) {
+        if ([cell.reuseIdentifier isEqualToString:identifier]) {
+            
+            // 这里strongCell的作用是防止cell立刻被释放，增加一个强引用
+            UITableViewCell *strongCell = cell;
+            [_reusableCells removeObject:cell];
+            [strongCell prepareForReuse];
+            return strongCell;
+        }
+    }
+    
+    return nil;
+}
+
+#pragma mark - 设置dataSource代理
+- (void)setDataSource:(id<UITableViewDataSource>)newSource
+{
+    _dataSource = newSource;
+    
+    _dataSourceHas.numberOfSectionsInTableView = [_dataSource respondsToSelector:@selector(numberOfSectionsInTableView:)];
+    _dataSourceHas.titleForHeaderInSection = [_dataSource respondsToSelector:@selector(tableView:titleForHeaderInSection:)];
+    _dataSourceHas.titleForFooterInSection = [_dataSource respondsToSelector:@selector(tableView:titleForFooterInSection:)];
+    _dataSourceHas.commitEditingStyle = [_dataSource respondsToSelector:@selector(tableView:commitEditingStyle:forRowAtIndexPath:)];
+    _dataSourceHas.canEditRowAtIndexPath = [_dataSource respondsToSelector:@selector(tableView:canEditRowAtIndexPath:)];
+    
+    [self _setNeedsReload];
+}
+
+#pragma mark - 设置delegate代理
+- (void)setDelegate:(id<UITableViewDelegate>)newDelegate
+{
+    [super setDelegate:newDelegate];
+    
+    _delegateHas.heightForRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
+    _delegateHas.heightForHeaderInSection = [newDelegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)];
+    _delegateHas.heightForFooterInSection = [newDelegate respondsToSelector:@selector(tableView:heightForFooterInSection:)];
+    _delegateHas.viewForHeaderInSection = [newDelegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)];
+    _delegateHas.viewForFooterInSection = [newDelegate respondsToSelector:@selector(tableView:viewForFooterInSection:)];
+    _delegateHas.willSelectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)];
+    _delegateHas.didSelectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)];
+    _delegateHas.willDeselectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:willDeselectRowAtIndexPath:)];
+    _delegateHas.didDeselectRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)];
+    _delegateHas.willBeginEditingRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:willBeginEditingRowAtIndexPath:)];
+    _delegateHas.didEndEditingRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:didEndEditingRowAtIndexPath:)];
+    _delegateHas.titleForDeleteConfirmationButtonForRowAtIndexPath = [newDelegate respondsToSelector:@selector(tableView:titleForDeleteConfirmationButtonForRowAtIndexPath:)];
+}
 
 @end
+
+
 
 
 @implementation NSIndexPath (UITableView)

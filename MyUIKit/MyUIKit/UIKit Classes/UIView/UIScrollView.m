@@ -32,6 +32,7 @@
  
  */
 // 文字能说明的东西有限，细节的情况还请多看这个类的源码，就在下面
+//  UIScrollView实现： http://www.jianshu.com/p/1e920aee7429
 
 static const NSTimeInterval UIScrollViewAnimationDuration = 0.33;
 static const NSTimeInterval UIScrollViewQuickAnimationDuration = 0.22;
