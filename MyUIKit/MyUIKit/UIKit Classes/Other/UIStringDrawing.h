@@ -1,4 +1,4 @@
-//  UIStringDrawing   NSString的分类，主要实现NSString的绘制功能    完全实现
+//  UIStringDrawing   NSString的分类，主要实现NSString的绘制功能    完全实现ok
 //  UIStringDrawing.h
 //  MyUIKit
 //

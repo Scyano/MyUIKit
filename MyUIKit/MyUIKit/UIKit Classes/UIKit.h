@@ -9,6 +9,8 @@
  阅读此项目时，私有类及私有分类不必太关注，这些类只是.m里面为了实现某些功能定义的私有方法
  
  */
+
+//  Jackdx的blog   http://www.jianshu.com/u/8ff4c668dbe6
 #ifndef UIKit_h
 #define UIKit_h
 
@@ -20,19 +22,22 @@
 #define IBOutlet
 #endif
 //  UIView,UIViewController,UIView动画实现，UIAppearance文章待写
-// UIScrollView,UITableView文章待写
-#import "UIResponder.h"   //  完全实现
-#import "UIEvent.h"  //  完全实现
+
+#import "UIResponder.h"   //  完全实现ok
+#import "UIEvent.h"  //  完全实现ok
 #import "UITouch.h"  //  完全实现
 
 #import "UIView.h"  //  完全实现
 #import "UIScrollView.h" // 完全实现ok（重点）
 #import "UITableView"  //  完全实现ok（重点）
 
-#import "UITableViewCell.h"  //  完全实现
+#import "UITableViewCell.h"  //  完全实现ok
+#import "UITableViewHeaderFooterView.h"  //  完全实现ok
 #import "UIViewController.h"  // 完全实现
 
-#import "UIBezierPath.h"  // 完全实现
+#import "UIBezierPath.h"  // 完全实现ok
+#import "UIGeometry.h"  // 完全实现ok
+#import "UIGraphics.h"  // 完全实现ok
 
 
 #endif /* UIKit_h */

@@ -191,7 +191,6 @@ static CFArrayRef CreateCTLinesForString(NSString *string, CGSize constrainedToS
         CFRelease(lines);
     }
     
-    // the real UIKit appears to do this.. so shall we.
     actualSize.height = MIN(actualSize.height, rect.size.height);
     
     return actualSize;

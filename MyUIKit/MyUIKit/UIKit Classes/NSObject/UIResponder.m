@@ -65,7 +65,6 @@
                     controller.keyInputResponder = (UIResponder<UIKeyInput> *)self;
                     [controller setInputVisible:YES animated:YES];
                     
-                    // key input won't very well work without this
                     [window makeKeyWindow];
                 }
                 
@@ -170,10 +169,6 @@
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
-    // note, this requires NSSecureCoding, so you have to do something like this:
-    //id obj = [decoder decodeObjectOfClass:[MyClass class] forKey:@"myKey"];
-    
-    // TODO
     return [self init];
 }
 
@@ -184,7 +179,6 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    // this should be okay, because this is an immutable object
     return self;
 }
 
