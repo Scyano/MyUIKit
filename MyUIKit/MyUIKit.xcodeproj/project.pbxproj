@@ -31,6 +31,13 @@
 		BB36CB6C1E6D395E0000449B /* UIScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB6B1E6D395E0000449B /* UIScrollView.m */; };
 		BB36CB6F1E6D39770000449B /* UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB6E1E6D39770000449B /* UITableView.m */; };
 		BB36CB751E6D8EE70000449B /* UIStringDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = BB36CB741E6D8EE70000449B /* UIStringDrawing.m */; };
+		BB40C8321E7586DF00CBFF1C /* UIImage+UIPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40C8311E7586DF00CBFF1C /* UIImage+UIPrivate.m */; };
+		BB40C8361E758B5100CBFF1C /* UIAcceleration.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40C8351E758B5100CBFF1C /* UIAcceleration.m */; };
+		BB40C8391E758B8400CBFF1C /* UIAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40C8381E758B8400CBFF1C /* UIAccelerometer.m */; };
+		BB40C83C1E758BAE00CBFF1C /* UIAccessibilityElement.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40C83B1E758BAE00CBFF1C /* UIAccessibilityElement.m */; };
+		BB40C83F1E758C2300CBFF1C /* UIAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40C83E1E758C2300CBFF1C /* UIAccessibility.m */; };
+		BB40C8421E758DB200CBFF1C /* UITabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40C8411E758DB200CBFF1C /* UITabBarItem.m */; };
+		BB40C8451E758ECB00CBFF1C /* UIInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = BB40C8441E758ECB00CBFF1C /* UIInterface.m */; };
 		BB7FB3A31E703F500031511B /* UIInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3A21E703F500031511B /* UIInputController.m */; };
 		BB7FB3A71E7041A20031511B /* UIImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3A61E7041A20031511B /* UIImageRep.m */; };
 		BB7FB3AA1E7044160031511B /* UIAction.m in Sources */ = {isa = PBXBuildFile; fileRef = BB7FB3A91E7044160031511B /* UIAction.m */; };
@@ -139,6 +146,21 @@
 		BB36CB6E1E6D39770000449B /* UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableView.m; sourceTree = "<group>"; };
 		BB36CB731E6D8EE70000449B /* UIStringDrawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIStringDrawing.h; sourceTree = "<group>"; };
 		BB36CB741E6D8EE70000449B /* UIStringDrawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIStringDrawing.m; sourceTree = "<group>"; };
+		BB40C8301E7586DF00CBFF1C /* UIImage+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+UIPrivate.h"; sourceTree = "<group>"; };
+		BB40C8311E7586DF00CBFF1C /* UIImage+UIPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+UIPrivate.m"; sourceTree = "<group>"; };
+		BB40C8331E75886B00CBFF1C /* UIFont+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+UIPrivate.h"; sourceTree = "<group>"; };
+		BB40C8341E758B5100CBFF1C /* UIAcceleration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAcceleration.h; sourceTree = "<group>"; };
+		BB40C8351E758B5100CBFF1C /* UIAcceleration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAcceleration.m; sourceTree = "<group>"; };
+		BB40C8371E758B8400CBFF1C /* UIAccelerometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccelerometer.h; sourceTree = "<group>"; };
+		BB40C8381E758B8400CBFF1C /* UIAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccelerometer.m; sourceTree = "<group>"; };
+		BB40C83A1E758BAE00CBFF1C /* UIAccessibilityElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccessibilityElement.h; sourceTree = "<group>"; };
+		BB40C83B1E758BAE00CBFF1C /* UIAccessibilityElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccessibilityElement.m; sourceTree = "<group>"; };
+		BB40C83D1E758C2300CBFF1C /* UIAccessibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAccessibility.h; sourceTree = "<group>"; };
+		BB40C83E1E758C2300CBFF1C /* UIAccessibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAccessibility.m; sourceTree = "<group>"; };
+		BB40C8401E758DB200CBFF1C /* UITabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITabBarItem.h; sourceTree = "<group>"; };
+		BB40C8411E758DB200CBFF1C /* UITabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITabBarItem.m; sourceTree = "<group>"; };
+		BB40C8431E758ECB00CBFF1C /* UIInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIInterface.h; sourceTree = "<group>"; };
+		BB40C8441E758ECB00CBFF1C /* UIInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIInterface.m; sourceTree = "<group>"; };
 		BB7FB3A11E703F500031511B /* UIInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIInputController.h; sourceTree = "<group>"; };
 		BB7FB3A21E703F500031511B /* UIInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIInputController.m; sourceTree = "<group>"; };
 		BB7FB3A41E70404C0031511B /* UIColor+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+UIPrivate.h"; sourceTree = "<group>"; };
@@ -377,6 +399,7 @@
 		BBFF33931E6C12CC002ED6B0 /* Private Categories */ = {
 			isa = PBXGroup;
 			children = (
+				BB40C8331E75886B00CBFF1C /* UIFont+UIPrivate.h */,
 				BB7FB3AE1E7044A20031511B /* UIControl+UIPrivate.h */,
 				BB7FB3A41E70404C0031511B /* UIColor+UIPrivate.h */,
 				BB36CB5D1E6D35830000449B /* UITableViewCell+UIPrivate.h */,
@@ -386,6 +409,8 @@
 				BB947C461E6EE65A0056DE97 /* UIViewController+UIPrivate.h */,
 				BB8579FD1E6FDC8B0062F594 /* UIGestureRecognizer+UIPrivate.h */,
 				BB96083D1E7163D900A41A20 /* UIScrollView+UIPrivate.h */,
+				BB40C8301E7586DF00CBFF1C /* UIImage+UIPrivate.h */,
+				BB40C8311E7586DF00CBFF1C /* UIImage+UIPrivate.m */,
 			);
 			path = "Private Categories";
 			sourceTree = "<group>";
@@ -440,6 +465,18 @@
 				BB0C563B1E728746006F5DE9 /* UIPanGestureRecognizer.h */,
 				BB0C563C1E728746006F5DE9 /* UIPanGestureRecognizer.m */,
 				BB0C563E1E728974006F5DE9 /* UIGestureRecognizerSubclass.h */,
+				BB40C8341E758B5100CBFF1C /* UIAcceleration.h */,
+				BB40C8351E758B5100CBFF1C /* UIAcceleration.m */,
+				BB40C8371E758B8400CBFF1C /* UIAccelerometer.h */,
+				BB40C8381E758B8400CBFF1C /* UIAccelerometer.m */,
+				BB40C83A1E758BAE00CBFF1C /* UIAccessibilityElement.h */,
+				BB40C83B1E758BAE00CBFF1C /* UIAccessibilityElement.m */,
+				BB40C83D1E758C2300CBFF1C /* UIAccessibility.h */,
+				BB40C83E1E758C2300CBFF1C /* UIAccessibility.m */,
+				BB40C8401E758DB200CBFF1C /* UITabBarItem.h */,
+				BB40C8411E758DB200CBFF1C /* UITabBarItem.m */,
+				BB40C8431E758ECB00CBFF1C /* UIInterface.h */,
+				BB40C8441E758ECB00CBFF1C /* UIInterface.m */,
 			);
 			path = NSObject;
 			sourceTree = "<group>";
@@ -630,6 +667,7 @@
 				BB8579FB1E6FB16B0062F594 /* UIAppearanceProperty.m in Sources */,
 				BBFF33D21E6C5B5C002ED6B0 /* UIWindow.m in Sources */,
 				BB7FB3B11E70475A0031511B /* UIButton.m in Sources */,
+				BB40C83F1E758C2300CBFF1C /* UIAccessibility.m in Sources */,
 				BBFF33D01E6C5B5C002ED6B0 /* UIControl.m in Sources */,
 				BB947C391E6ED5370056DE97 /* UISearchDisplayController.m in Sources */,
 				BBFF33C61E6C5674002ED6B0 /* UIScreen.m in Sources */,
@@ -643,10 +681,12 @@
 				BB0C563D1E728746006F5DE9 /* UIPanGestureRecognizer.m in Sources */,
 				BB36CB631E6D37AE0000449B /* UIImageView.m in Sources */,
 				BB0C56411E728FD8006F5DE9 /* UITableViewSection.m in Sources */,
+				BB40C8391E758B8400CBFF1C /* UIAccelerometer.m in Sources */,
 				BBFF33D11E6C5B5C002ED6B0 /* UIView.m in Sources */,
 				BBFF33DE1E6C5C01002ED6B0 /* UIResponder.m in Sources */,
 				BB36CB601E6D36120000449B /* UITableViewCellSeparator.m in Sources */,
 				BBFF33C21E6C4022002ED6B0 /* UITextInput.m in Sources */,
+				BB40C8451E758ECB00CBFF1C /* UIInterface.m in Sources */,
 				BBFF33DF1E6C5C01002ED6B0 /* UITouch.m in Sources */,
 				BB0C56311E728242006F5DE9 /* UITouchEvent.m in Sources */,
 				BB36CB6F1E6D39770000449B /* UITableView.m in Sources */,
@@ -662,8 +702,10 @@
 				BB7FB3AA1E7044160031511B /* UIAction.m in Sources */,
 				BB8579F21E6FAAF10062F594 /* UIViewLayoutManager.m in Sources */,
 				BBFF33DD1E6C5C01002ED6B0 /* UIEvent.m in Sources */,
+				BB40C8421E758DB200CBFF1C /* UITabBarItem.m in Sources */,
 				BBFF33651E6BFDF3002ED6B0 /* AppDelegate.m in Sources */,
 				BB36CB3D1E6D03DE0000449B /* UIApplication.m in Sources */,
+				BB40C83C1E758BAE00CBFF1C /* UIAccessibilityElement.m in Sources */,
 				BB947C3C1E6EDB0C0056DE97 /* UINavigationItem.m in Sources */,
 				BBFF33DC1E6C5C01002ED6B0 /* UIBarItem.m in Sources */,
 				BBFF33C91E6C5799002ED6B0 /* UIGeometry.m in Sources */,
@@ -678,7 +720,9 @@
 				BB0C56371E7286A3006F5DE9 /* UIScrollViewAnimationDeceleration.m in Sources */,
 				BB947C3F1E6EDBAF0056DE97 /* UINavigationController.m in Sources */,
 				BB947C361E6ED4510056DE97 /* UIDevice.m in Sources */,
+				BB40C8361E758B5100CBFF1C /* UIAcceleration.m in Sources */,
 				BB36CB3A1E6D005A0000449B /* UIViewController.m in Sources */,
+				BB40C8321E7586DF00CBFF1C /* UIImage+UIPrivate.m in Sources */,
 				BB947C421E6EDC7B0056DE97 /* UIToolbar.m in Sources */,
 				BB36CB501E6D10B70000449B /* UIImage.m in Sources */,
 				BB36CB751E6D8EE70000449B /* UIStringDrawing.m in Sources */,

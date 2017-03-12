@@ -38,6 +38,20 @@
 #import "UIBezierPath.h"  // 完全实现ok
 #import "UIGeometry.h"  // 完全实现ok
 #import "UIGraphics.h"  // 完全实现ok
+#import "UIColor.h"  // 完全实现ok
+#import "UIFont.h"  // 完全实现ok
+
+#import "UIAcceleration.h"  // 完全实现ok
+#import "UIAccelerometer.h"  // 完全实现ok
+#import "UIAccessibilityElement.h"  // 完全实现ok
+#import "UIAccessibility.h" // 完全实现ok
+
+#import "UIBarItem.h"  // 完全实现ok
+#import "UITabBarItem.h"  // 完全实现ok
+#import "UIBarButtonItem.h" // 完全实现ok
+#import "UIInterface.h"  // 完全实现ok
+
+#import "UIDevice.h"  // 完全实现ok
 
 
 #endif /* UIKit_h */
