@@ -92,10 +92,6 @@
 
 - (CGPoint)locationInView:(UIView *)view
 {
-    // by default, this should compute the centroid of all the involved points
-    // of course as of this writing, Chameleon only supports one point but at least
-    // it may be semi-correct if that ever changes. :D YAY FOR COMPLEXITY!
-    
     CGFloat x = 0;
     CGFloat y = 0;
     CGFloat k = 0;
@@ -126,9 +122,6 @@
             state = UIGestureRecognizerStateFailed;
         }
     }
-    
-    // the docs didn't say explicitly if these state transitions were verified, but I suspect they are. if anything, a check like this
-    // should help debug things. it also helps me better understand the whole thing, so it's not a total waste of time :)
     
     typedef struct { UIGestureRecognizerState fromState, toState; BOOL shouldNotify; } StateTransition;
     
@@ -164,10 +157,7 @@
         
         if (transition->shouldNotify) {
             for (UIAction *actionRecord in _registeredActions) {
-                // docs mention that the action messages are sent on the next run loop, so we'll do that here.
-                // note that this means that reset can't happen until the next run loop, either otherwise
-                // the state property is going to be wrong when the action handler looks at it, so as a result
-                // I'm also delaying the reset call (if necessary) below in -continueTrackingWithEvent:
+               
                 [actionRecord.target performSelector:actionRecord.action withObject:self afterDelay:0];
             }
         }
@@ -176,12 +166,6 @@
 
 - (void)reset
 {
-    // note - this is also supposed to ignore any currently tracked touches
-    // the touches themselves may not have gone away, so we don't just remove them from tracking, I think,
-    // but instead just mark them as ignored by this gesture until the touches eventually end themselves.
-    // in any case, this isn't implemented right now because we only have a single touch and so far I
-    // haven't needed it.
-    
     _state = UIGestureRecognizerStatePossible;
 }
 
@@ -267,12 +251,9 @@
         }
     }
     
-    // if all the touches are ended or cancelled, then the multitouch sequence must be over - so we can reset
-    // our state back to normal and clear all the tracked touches, etc. to get ready for a new touch sequence
-    // in the future.
-    // this also applies to the special discrete gesture events because those events are only sent once!
+    
     if (multitouchSequenceIsEnded || event.isDiscreteGesture) {
-        // see note above in -setState: about the delay here!
+        
         [self performSelector:@selector(reset) withObject:nil afterDelay:0];
     }
 }

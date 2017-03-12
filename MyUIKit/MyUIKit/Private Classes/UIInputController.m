@@ -15,7 +15,6 @@
 
 static UIView *ContainerForView(UIView *view)
 {
-    // find the reference view's "container" view, which I'm going to define as the nearest view of a UIViewController or a UIWindow.
     UIView *containerView = view;
     
     while (containerView && !([containerView isKindOfClass:[UIWindow class]] || [containerView _viewController])) {
@@ -59,15 +58,13 @@ static UIView *ContainerForView(UIView *view)
     
 }
 
-// finds the first real UIView that the current key window's first responder "belongs" to so we know where to display the input window
 - (UIView *)_referenceView
 {
     UIResponder *firstResponder = self.keyInputResponder;
     
     if (firstResponder) {
         UIResponder *currentResponder = firstResponder;
-        
-        // find the first real UIView that this responder "belongs" to so we know where to display the input view from
+    
         while (currentResponder) {
             if ([currentResponder isKindOfClass:[UIView class]]) {
                 return (UIView *)currentResponder;

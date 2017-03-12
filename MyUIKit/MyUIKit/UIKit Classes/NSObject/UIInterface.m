@@ -7,7 +7,7 @@
 
 + (UIColor *)groupTableViewBackgroundColor
 {
-    return [UIColor lightGrayColor];    // this is currently not likely to be correct, please fix!
+    return [UIColor lightGrayColor];    
 }
 
 @end
