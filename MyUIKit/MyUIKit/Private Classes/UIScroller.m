@@ -2,7 +2,7 @@
 //  UIScroller.m
 //  MyUIKit
 //
-//  Created by 邓翔 on 17/3/8.
+//  Created by 邓翔 on 17/1/8.
 //  Copyright © 2017年 Jack. All rights reserved.
 //  UIScroller是个非常有意思的类，下面说说它的实现原理
 /*
