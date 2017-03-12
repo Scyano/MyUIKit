@@ -2,7 +2,7 @@
 //  UITableViewHeaderFooterView.m
 //  MyUIKit
 //
-//  Created by 邓翔 on 17/1/12.
+//  Created by Jackdx on 17/1/12.
 //  Copyright © 2017年 Jack. All rights reserved.
 //
 /*
