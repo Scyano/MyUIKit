@@ -224,6 +224,10 @@ extern CGFloat _UITableViewDefaultRowHeight;
         [self _updateSelectionState];
     }
 }
+- (void)setEditing:(BOOL)editing
+{
+    [self setEditing:editing animated:NO];
+}
 
 - (void)setHighlighted:(BOOL)highlighted
 {

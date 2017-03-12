@@ -50,6 +50,7 @@
 		BB947C421E6EDC7B0056DE97 /* UIToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = BB947C411E6EDC7B0056DE97 /* UIToolbar.m */; };
 		BB947C451E6EDED20056DE97 /* UISplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB947C441E6EDED20056DE97 /* UISplitViewController.m */; };
 		BB96083C1E715CB700A41A20 /* UIRoundedRectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96083B1E715CB700A41A20 /* UIRoundedRectButton.m */; };
+		BBB0184A1E74D88600440DB7 /* UITableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB018491E74D88600440DB7 /* UITableViewHeaderFooterView.m */; };
 		BBFF33651E6BFDF3002ED6B0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33641E6BFDF3002ED6B0 /* AppDelegate.m */; };
 		BBFF33681E6BFDF3002ED6B0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF33671E6BFDF3002ED6B0 /* main.m */; };
 		BBFF336B1E6BFDF3002ED6B0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFF336A1E6BFDF3002ED6B0 /* ViewController.m */; };
@@ -181,6 +182,8 @@
 		BB96083A1E715CB700A41A20 /* UIRoundedRectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRoundedRectButton.h; sourceTree = "<group>"; };
 		BB96083B1E715CB700A41A20 /* UIRoundedRectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIRoundedRectButton.m; sourceTree = "<group>"; };
 		BB96083D1E7163D900A41A20 /* UIScrollView+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+UIPrivate.h"; sourceTree = "<group>"; };
+		BBB018481E74D88600440DB7 /* UITableViewHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITableViewHeaderFooterView.h; sourceTree = "<group>"; };
+		BBB018491E74D88600440DB7 /* UITableViewHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewHeaderFooterView.m; sourceTree = "<group>"; };
 		BBFF33601E6BFDF3002ED6B0 /* MyUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFF33631E6BFDF3002ED6B0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BBFF33641E6BFDF3002ED6B0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -486,6 +489,8 @@
 				BB36CB6B1E6D395E0000449B /* UIScrollView.m */,
 				BB36CB6D1E6D39770000449B /* UITableView.h */,
 				BB36CB6E1E6D39770000449B /* UITableView.m */,
+				BBB018481E74D88600440DB7 /* UITableViewHeaderFooterView.h */,
+				BBB018491E74D88600440DB7 /* UITableViewHeaderFooterView.m */,
 				BB0C56451E7293FB006F5DE9 /* UITextField.h */,
 				BB0C56461E7293FB006F5DE9 /* UITextField.m */,
 			);
@@ -634,6 +639,7 @@
 				BB36CB6C1E6D395E0000449B /* UIScrollView.m in Sources */,
 				BB36CB691E6D38D70000449B /* UIFont.m in Sources */,
 				BB0C56341E728599006F5DE9 /* UIScrollViewAnimation.m in Sources */,
+				BBB0184A1E74D88600440DB7 /* UITableViewHeaderFooterView.m in Sources */,
 				BB0C563D1E728746006F5DE9 /* UIPanGestureRecognizer.m in Sources */,
 				BB36CB631E6D37AE0000449B /* UIImageView.m in Sources */,
 				BB0C56411E728FD8006F5DE9 /* UITableViewSection.m in Sources */,

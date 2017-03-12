@@ -27,6 +27,7 @@
 
 #import "UIView.h"  //  完全实现
 #import "UIScrollView.h" // 完全实现ok（重点）
+#import "UITableView"  //  完全实现ok（重点）
 
 #import "UITableViewCell.h"  //  完全实现
 #import "UIViewController.h"  // 完全实现
